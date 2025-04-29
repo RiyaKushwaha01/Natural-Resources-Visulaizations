@@ -27,14 +27,14 @@ land_category = sorted(df["Land Category"].dropna().unique())
 selected_years = st.sidebar.multiselect("Select Year(s):", years, default=years)
 selected_land_classes = st.sidebar.multiselect("Select Land Class(es):", land_classes, default=land_classes)
 selected_states = st.sidebar.multiselect("Select State(s):", states, default=states)
-selected_land_categorries = st.sidebar.multiselect("Select Land Category(es):", land_category, default=land_category)
+selected_land_categories = st.sidebar.multiselect("Select Land Category(es):", land_category, default=land_category)
 
 # Apply filters
 filtered_df = df[
     df["Calendar Year"].isin(selected_years) &
     df["Land Class"].isin(selected_land_classes) &
     df["State"].isin(selected_states) &
-    df["Land Category"].isin(selected_land_category)
+    df["Land Category"].isin(selected_land_categories)
 ]
 
 # Dataset preview
