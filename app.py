@@ -2,11 +2,11 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import os
 
-# Set page config
+# Set page configuration
 st.set_page_config(page_title="Revenue EDA", layout="wide")
 
+# Title
 st.title("Natural Resources Revenue - EDA & Visualization")
 
 # Define path to data
