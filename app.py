@@ -47,4 +47,7 @@ st.subheader("Revenue by Land Class")
 revenue_landclass = df.groupby("Land Class")["Revenue"].sum()
 
 fig2, ax2 = plt.subplots()
-revenue_landclass.plot(kind="pie", autopct="%._
+revenue_landclass.plot(kind="pie", autopct="%.2f%%", ax=ax2)
+ax2.set_ylabel("")
+ax2.set_title("Revenue Distribution by Land Class")
+st.pyplot(fig2)
