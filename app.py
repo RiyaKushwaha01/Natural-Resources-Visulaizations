@@ -22,16 +22,19 @@ st.sidebar.header("Filter Data")
 years = sorted(df["Calendar Year"].dropna().unique())
 land_classes = sorted(df["Land Class"].dropna().unique())
 states = sorted(df["State"].dropna().unique())
+land_category = sorted(df["Land Category"].dropna().unique())
 
 selected_years = st.sidebar.multiselect("Select Year(s):", years, default=years)
 selected_land_classes = st.sidebar.multiselect("Select Land Class(es):", land_classes, default=land_classes)
 selected_states = st.sidebar.multiselect("Select State(s):", states, default=states)
+selected_land_categorries = st.sidebar.multiselect("Select Land Category(es):", land_category, default=land_category)
 
 # Apply filters
 filtered_df = df[
     df["Calendar Year"].isin(selected_years) &
     df["Land Class"].isin(selected_land_classes) &
-    df["State"].isin(selected_states)
+    df["State"].isin(selected_states) &
+    df["Land Category"].isin(selected_land_category)
 ]
 
 # Dataset preview
@@ -45,8 +48,8 @@ revenue_trends = filtered_df.groupby("Calendar Year")["Revenue"].sum().reset_ind
 fig1, ax1 = plt.subplots(figsize=(6, 3))
 sns.lineplot(data=revenue_trends, x="Calendar Year", y="Revenue", ax=ax1)
 ax1.set_title("Revenue Trends Over the Years", fontsize=11)
-ax1.set_xlabel("Year", fontsize=5)
-ax1.set_ylabel("Revenue", fontsize=5)
+ax1.set_xlabel("Year", fontsize= 8)
+ax1.set_ylabel("Revenue", fontsize=8)
 st.pyplot(fig1)
 
 # Revenue by Land Class
