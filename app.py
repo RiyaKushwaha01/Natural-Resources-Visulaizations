@@ -50,7 +50,7 @@ revenue_trends = filtered_df.groupby("Calendar Year")["Revenue"].sum().reset_ind
 
 fig1, ax1 = plt.subplots(figsize=(6,3))  # Adjust size here
 sns.lineplot(data=revenue_trends, x="Calendar Year", y="Revenue", ax=ax1)
-ax1.set_title("Revenue Trends Over the Years")
+ax1.set_title("Revenue Trends Over the Years", fontsize = 11)
 ax1.set_xlabel("Year")
 ax1.set_ylabel("Revenue")
 st.pyplot(fig1)
