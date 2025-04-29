@@ -43,70 +43,67 @@ st.pyplot(fig2)
 
 # Revenue by Land Category
 st.subheader("Revenue by Land Category")
-df.groupby('Land Category').Revenue.sum().sort_values(ascending = False)
+Revenue_LandCategory = df.groupby('Land Category')["Revenue"].sum().sort_values(ascending=False)
 
 fig3, ax3 = plt.subplots()
-Revenue_LandCategory.plot(kind = 'bar', figsize = (4,3), ax=ax3)
+Revenue_LandCategory.plot(kind='bar', figsize=(6,4), ax=ax3)
 ax3.set_ylabel("")
 ax3.set_title("Revenue Distribution by Land Category")
 st.pyplot(fig3)
 
 # State by Revenue
-St.subheader("State by Revenue")
-df.groupby('State').Revenue.sum().sort_values(ascending = False)
+st.subheader("State by Revenue")
+State_Revenue = df.groupby('State')["Revenue"].sum().sort_values(ascending=False)
 
 fig4, ax4 = plt.subplots()
-State_Revenue.plot(kind  = 'bar', width= 0.7 , figsize = (4,3), ax=ax4)
-ax3.set_ylabel("")
-ax3.set_title("State by Revenue")
+State_Revenue.plot(kind='bar', width=0.7, figsize=(6,4), ax=ax4)
+ax4.set_ylabel("")
+ax4.set_title("State by Revenue")
 st.pyplot(fig4)
 
-# Correaltion Analysis
-St.subheader("Correaltion Analysis")
-df.select_dtypes(['float64','int64']).corr(), annot = True
-
+# Correlation Analysis
+st.subheader("Correlation Analysis")
 fig5, ax5 = plt.subplots()
-sns.heatmap(df.select_dtypes(['float64','int64']).corr(), annot = True,ax=ax5)
-ax3.set_ylabel("")
-ax3.set_title("Correaltion Analysis")
+sns.heatmap(df.select_dtypes(['float64', 'int64']).corr(), annot=True, ax=ax5)
+ax5.set_title("Correlation Analysis")
 st.pyplot(fig5)
 
 # County by Revenue
-St.subheader("County by Revenue")
-df.groupby('County')['Revenue'].sum().sort_values(ascending=False)
+st.subheader("County by Revenue")
+County_Revenue = df.groupby('County')["Revenue"].sum().sort_values(ascending=False)
 
 fig6, ax6 = plt.subplots()
-County_Revenue.plot(kind = 'bar', figsize = (4,3), ax=ax6)
-ax3.set_ylabel("")
-ax3.set_title("County by Revenue")
+County_Revenue.plot(kind='bar', figsize=(6,4), ax=ax6)
+ax6.set_ylabel("")
+ax6.set_title("County by Revenue")
 st.pyplot(fig6)
 
 # Revenue distribution of Offshore region
-St.subheader("Revenue distribution of Offshore region")
-df.groupby ('Offshore Region').Revenue.sum().sort_values(ascending = False)
+st.subheader("Revenue distribution of Offshore region")
+Offshore_Revenue = df.groupby('Offshore Region')["Revenue"].sum().sort_values(ascending=False)
 
 fig7, ax7 = plt.subplots()
-Offshore_Revenue.plot(kind = 'bar', figsize = (4,3), ax=ax7)
-ax3.set_ylabel("")
-ax3.set_title("Revenue distribution of Offshore region")
+Offshore_Revenue.plot(kind='bar', figsize=(6,4), ax=ax7)
+ax7.set_ylabel("")
+ax7.set_title("Revenue distribution of Offshore region")
 st.pyplot(fig7)
 
 # Total Revenue for Commodity and Mineral Lease type
-St.subheader("Total Revenue for Commodity and Mineral Lease type")
-df.groupby(['Commodity','Mineral Lease Type']).Revenue.sum().sort_values(ascending = False)
+st.subheader("Total Revenue for Commodity and Mineral Lease type")
+RevenuebyCommodityMineralLease = df.groupby(['Commodity', 'Mineral Lease Type'])["Revenue"].sum().sort_values(ascending=False)
 
 fig8, ax8 = plt.subplots()
-RevenuebyCommodityMineralLease.plot(kind = 'bar', x=ax7 )
-ax3.set_ylabel("")
-ax3.set_title("Total Revenue for Commodity and Mineral Lease type")
+RevenuebyCommodityMineralLease.plot(kind='bar', figsize=(6,4), ax=ax8)
+ax8.set_ylabel("")
+ax8.set_title("Total Revenue for Commodity and Mineral Lease type")
 st.pyplot(fig8)
 
 # Revenue by Revenue Types
-St.subheader("Revenue by Revenue Types")
-df.groupby('Revenue Type').Revenue.sum().sort_values(ascending = False)
+st.subheader("Revenue by Revenue Types")
+Revenue_Rev_Type = df.groupby('Revenue Type')["Revenue"].sum().sort_values(ascending=False)
 
 fig9, ax9 = plt.subplots()
-Revenue_Rev_Type.plot(kind = 'barh',figsize = (4,3), x=ax8)
-ax3.set_ylabel("")
-ax3.set_title("Revenue by Revenue Types")
+Revenue_Rev_Type.plot(kind='barh', figsize=(6,4), ax=ax9)
+ax9.set_xlabel("Revenue")
+ax9.set_title("Revenue by Revenue Types")
 st.pyplot(fig9)
