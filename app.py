@@ -45,14 +45,14 @@ st.subheader("Dataset Preview")
 st.dataframe(df.head())
 
 # Revenue Trends over Years
-st.subheader("Revenue Trends Over the Years")
+st.subheader("Revenue Trends Over the Years", fontsize = 14)
 revenue_trends = filtered_df.groupby("Calendar Year")["Revenue"].sum().reset_index()
 
 fig1, ax1 = plt.subplots(figsize=(6,3))  # Adjust size here
 sns.lineplot(data=revenue_trends, x="Calendar Year", y="Revenue", ax=ax1)
 ax1.set_title("Revenue Trends Over the Years", fontsize = 11)
-ax1.set_xlabel("Year")
-ax1.set_ylabel("Revenue")
+ax1.set_xlabel("Year", fontsize = 8)
+ax1.set_ylabel("Revenue",fontsize = 8 )
 st.pyplot(fig1)
 
 # Revenue by Land Class
