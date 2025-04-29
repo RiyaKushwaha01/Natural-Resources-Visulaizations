@@ -9,23 +9,12 @@ st.set_page_config(page_title="Revenue EDA", layout="wide")
 # Title
 st.title("Natural Resources Revenue - EDA & Visualization")
 
-# Define path to data
-DATA_PATH = os.path.join(os.path.dirname(__file__), "Natural_Resources_Revenue.csv")
-
-# Load data with error handling
+# Load the data
 @st.cache_data
-def load_data(path):
-    try:
-        return pd.read_csv(path)
-    except FileNotFoundError:
-        st.error(f"File not found: {path}")
-        return pd.DataFrame()  # Return empty DataFrame so app doesn't crash
+def load_data():
+    return pd.read_csv("Natural_Resources_Revenue.csv")
 
-df = load_data(DATA_PATH)
-
-# Stop further processing if data isn't loaded
-if df.empty:
-    st.stop()
+df = load_data()
 
 # Show data preview
 st.subheader("Dataset Preview")
