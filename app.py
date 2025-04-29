@@ -70,7 +70,7 @@ st.subheader("Revenue by Land Category")
 Revenue_LandCategory = df.groupby('Land Category')["Revenue"].sum().sort_values(ascending=False)
 
 fig3, ax3 = plt.subplots()
-Revenue_LandCategory.plot(kind='bar', figsize=(4,3), ax=ax3)
+Revenue_LandCategory.plot(kind='bar', figsize=(3,2), ax=ax3)
 ax3.set_ylabel("")
 ax3.set_title("Revenue Distribution by Land Category")
 st.pyplot(fig3)
