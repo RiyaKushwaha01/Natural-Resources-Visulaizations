@@ -2,19 +2,30 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
 
-# Set page configuration
+# Set page config
 st.set_page_config(page_title="Revenue EDA", layout="wide")
 
-# Title
 st.title("Natural Resources Revenue - EDA & Visualization")
 
-# Load the data
-@st.cache_data
-def load_data():
-    return pd.read_csv("Natural_Resources_Revenue.csv")
+# Define path to data
+DATA_PATH = os.path.join(os.path.dirname(__file__), "Natural_Resources_Revenue.csv")
 
-df = load_data()
+# Load data with error handling
+@st.cache_data
+def load_data(path):
+    try:
+        return pd.read_csv(path)
+    except FileNotFoundError:
+        st.error(f"File not found: {path}")
+        return pd.DataFrame()  # Return empty DataFrame so app doesn't crash
+
+df = load_data(DATA_PATH)
+
+# Stop further processing if data isn't loaded
+if df.empty:
+    st.stop()
 
 # Show data preview
 st.subheader("Dataset Preview")
@@ -36,7 +47,4 @@ st.subheader("Revenue by Land Class")
 revenue_landclass = df.groupby("Land Class")["Revenue"].sum()
 
 fig2, ax2 = plt.subplots()
-revenue_landclass.plot(kind="pie", autopct="%.2f%%", ax=ax2)
-ax2.set_ylabel("")
-ax2.set_title("Revenue Distribution by Land Class")
-st.pyplot(fig2)
+revenue_landclass.plot(kind="pie", autopct="%._
