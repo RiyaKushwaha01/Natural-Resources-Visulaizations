@@ -16,15 +16,29 @@ def load_data():
 
 df = load_data()
 
+# Sidebar filters
+st.sidebar.header("Filters")
+years = sorted(df["Calendar Year"].dropna().unique())
+land_classes = sorted(df["Land Class"].dropna().unique())
+
+selected_years = st.sidebar.multiselect("Select Year(s)", years, default=years)
+selected_land_classes = st.sidebar.multiselect("Select Land Class(es)", land_classes, default=land_classes)
+
+# Filter the data
+filtered_df = df[
+    (df["Calendar Year"].isin(selected_years)) &
+    (df["Land Class"].isin(selected_land_classes))
+]
+
 # Show data preview
 st.subheader("Dataset Preview")
 st.dataframe(df.head())
 
 # Revenue Trends over Years
 st.subheader("Revenue Trends Over the Years")
-revenue_trends = df.groupby("Calendar Year")["Revenue"].sum().reset_index()
+revenue_trends = filtered_df.groupby("Calendar Year")["Revenue"].sum().reset_index()
 
-fig1, ax1 = plt.subplots()
+fig1, ax1 = plt.subplots(figsize=(10, 5))  # Adjust size here
 sns.lineplot(data=revenue_trends, x="Calendar Year", y="Revenue", ax=ax1)
 ax1.set_title("Revenue Trends Over the Years")
 ax1.set_xlabel("Year")
@@ -33,10 +47,10 @@ st.pyplot(fig1)
 
 # Revenue by Land Class
 st.subheader("Revenue by Land Class")
-revenue_landclass = df.groupby("Land Class")["Revenue"].sum()
+revenue_landclass = filtered_df.groupby("Land Class")["Revenue"].sum()
 
-fig2, ax2 = plt.subplots()
-revenue_landclass.plot(kind='pie', autopct='%.2f%%', ax=ax2)
+fig2, ax2 = plt.subplots(figsize=(6, 6))  # Adjust size here
+revenue_landclass.plot(kind="pie", autopct="%.2f%%", ax=ax2)
 ax2.set_ylabel("")
 ax2.set_title("Revenue Distribution by Land Class")
 st.pyplot(fig2)
