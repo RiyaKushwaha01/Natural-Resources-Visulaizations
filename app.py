@@ -45,7 +45,7 @@ st.subheader("Dataset Preview")
 st.dataframe(df.head())
 
 # Revenue Trends over Years
-st.subheader("Revenue Trends Over the Years", fontsize = 14)
+st.subheader("Revenue Trends Over the Years")
 revenue_trends = filtered_df.groupby("Calendar Year")["Revenue"].sum().reset_index()
 
 fig1, ax1 = plt.subplots(figsize=(6,3))  # Adjust size here
