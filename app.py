@@ -51,8 +51,8 @@ revenue_trends = filtered_df.groupby("Calendar Year")["Revenue"].sum().reset_ind
 fig1, ax1 = plt.subplots(figsize=(6,3))  # Adjust size here
 sns.lineplot(data=revenue_trends, x="Calendar Year", y="Revenue", ax=ax1)
 ax1.set_title("Revenue Trends Over the Years", fontsize = 11)
-ax1.set_xlabel("Year", fontsize = 8)
-ax1.set_ylabel("Revenue",fontsize = 8 )
+ax1.set_xlabel("Year", fontsize = 5)
+ax1.set_ylabel("Revenue",fontsize = 5)
 st.pyplot(fig1)
 
 # Revenue by Land Class
@@ -62,7 +62,7 @@ revenue_landclass = filtered_df.groupby("Land Class")["Revenue"].sum()
 fig2, ax2 = plt.subplots(figsize=(4,3))  # Adjust size here
 revenue_landclass.plot(kind="pie", autopct="%.2f%%", ax=ax2)
 ax2.set_ylabel("")
-ax2.set_title("Revenue Distribution by Land Class")
+ax2.set_title("Revenue Distribution by Land Class", fontsize = 11)
 st.pyplot(fig2)
 
 # Revenue by Land Category
@@ -72,7 +72,7 @@ Revenue_LandCategory = df.groupby('Land Category')["Revenue"].sum().sort_values(
 fig3, ax3 = plt.subplots()
 Revenue_LandCategory.plot(kind='bar', figsize=(3,2), ax=ax3)
 ax3.set_ylabel("")
-ax3.set_title("Revenue Distribution by Land Category")
+ax3.set_title("Revenue Distribution by Land Category", fontsize = 11)
 st.pyplot(fig3)
 
 # State by Revenue
@@ -82,14 +82,14 @@ State_Revenue = df.groupby('State')["Revenue"].sum().sort_values(ascending=False
 fig4, ax4 = plt.subplots()
 State_Revenue.plot(kind='bar', width=0.7, figsize=(4,3), ax=ax4)
 ax4.set_ylabel("")
-ax4.set_title("State by Revenue")
+ax4.set_title("State by Revenue", fontsize = 11)
 st.pyplot(fig4)
 
 # Correlation Analysis
 st.subheader("Correlation Analysis")
 fig5, ax5 = plt.subplots()
 sns.heatmap(df.select_dtypes(['float64', 'int64']).corr(), annot=True, ax=ax5)
-ax5.set_title("Correlation Analysis")
+ax5.set_title("Correlation Analysis", fontsize = 11)
 st.pyplot(fig5)
 
 # County by Revenue
@@ -99,7 +99,7 @@ County_Revenue = df.groupby('County')["Revenue"].sum().sort_values(ascending=Fal
 fig6, ax6 = plt.subplots()
 County_Revenue.plot(kind='bar', figsize=(4,3), ax=ax6)
 ax6.set_ylabel("")
-ax6.set_title("County by Revenue")
+ax6.set_title("County by Revenue", fontsize = 11)
 st.pyplot(fig6)
 
 # Revenue distribution of Offshore region
@@ -109,7 +109,7 @@ Offshore_Revenue = df.groupby('Offshore Region')["Revenue"].sum().sort_values(as
 fig7, ax7 = plt.subplots()
 Offshore_Revenue.plot(kind='bar', figsize=(4,3), ax=ax7)
 ax7.set_ylabel("")
-ax7.set_title("Revenue distribution of Offshore region")
+ax7.set_title("Revenue distribution of Offshore region", fontsize = 11)
 st.pyplot(fig7)
 
 # Total Revenue for Commodity and Mineral Lease type
@@ -119,7 +119,7 @@ RevenuebyCommodityMineralLease = df.groupby(['Commodity', 'Mineral Lease Type'])
 fig8, ax8 = plt.subplots()
 RevenuebyCommodityMineralLease.plot(kind='bar', figsize=(4,3), ax=ax8)
 ax8.set_ylabel("")
-ax8.set_title("Total Revenue for Commodity and Mineral Lease type")
+ax8.set_title("Total Revenue for Commodity and Mineral Lease type",fontsize = 11)
 st.pyplot(fig8)
 
 # Revenue by Revenue Types
@@ -128,6 +128,6 @@ Revenue_Rev_Type = df.groupby('Revenue Type')["Revenue"].sum().sort_values(ascen
 
 fig9, ax9 = plt.subplots()
 Revenue_Rev_Type.plot(kind='barh', figsize=(4,3), ax=ax9)
-ax9.set_xlabel("Revenue")
-ax9.set_title("Revenue by Revenue Types")
+ax9.set_xlabel("Revenue" , fontsize = 5)
+ax9.set_title("Revenue by Revenue Types", fontsize = 11)
 st.pyplot(fig9)
