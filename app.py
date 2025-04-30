@@ -236,8 +236,9 @@ else:
     revenue_rev_type = filtered_df.groupby("Revenue Type")["Revenue"].sum().sort_values(ascending=False)
     fig9, ax9 = plt.subplots(figsize=(3, 2))
     revenue_rev_type.plot(kind="barh", ax=ax9)
-    ax9.set_xlabel("Revenue", fontsize=8)
-    ax9.set_title("Revenue by Revenue Types", fontsize=9)
+    ax9.set_xlabel("Revenue", fontsize=6)
+    ax9.set_ylabel("Revenue Type", fontsize=6)
+    ax9.set_title("Revenue by Revenue Types", fontsize=8)
     # Change tick label size
     ax9.tick_params(axis='y', labelsize=6)
     ax9.tick_params(axis='x', labelsize=6)
