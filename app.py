@@ -3,96 +3,113 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Set page configuration
-st.set_page_config(page_title="Revenue EDA", layout="wide")
+# --- Login Section ---
+def login():
+    st.title("Login Page")
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+    if st.button("Login"):
+        if username == "admin" and password == "admin123":  # Replace with your credentials
+            st.session_state["authenticated"] = True
+        else:
+            st.error("Invalid username or password")
 
-# Title
-st.title("Natural Resources Revenue - EDA & Visualization")
+# Check session state
+if "authenticated" not in st.session_state:
+    st.session_state["authenticated"] = False
 
-# Load the data
-@st.cache_data
-def load_data():
-    return pd.read_csv("Natural_Resources_Revenue.csv")
+if not st.session_state["authenticated"]:
+    login()
+else:
+    # Set page configuration
+    st.set_page_config(page_title="Revenue EDA", layout="wide")
+    # Title
+    st.title("Natural Resources Revenue - EDA & Visualization")
 
-df = load_data()
+    # Load the data
+    @st.cache_data
+    def load_data():
+        return pd.read_csv("Natural_Resources_Revenue.csv")
 
-# Sidebar filters
-st.sidebar.header("Filter Data")
+    df = load_data()
 
-years = sorted(df["Calendar Year"].dropna().unique())
-land_classes = sorted(df["Land Class"].dropna().unique())
-states = sorted(df["State"].dropna().unique())
-land_category = sorted(df["Land Category"].dropna().unique())
+    # Sidebar filters
+    st.sidebar.header("Filter Data")
 
-with st.sidebar.expander("📊 Filter Data", expanded=True):
-    selected_years = st.multiselect("📅 Select Year(s):", options=years, default=years)
-    selected_land_classes = st.multiselect("🏞️ Select Land Class(es):", options=land_classes, default=land_classes)
-    selected_states = st.multiselect("📍 Select State(s):", options=states, default=states)
-    selected_land_categories = st.multiselect("🌍 Select Land Category(es):", options=land_category, default=land_category)
+    years = sorted(df["Calendar Year"].dropna().unique())
+    land_classes = sorted(df["Land Class"].dropna().unique())
+    states = sorted(df["State"].dropna().unique())
+    land_category = sorted(df["Land Category"].dropna().unique())
 
-# Apply filters
-filtered_df = df[
-    df["Calendar Year"].isin(selected_years) &
-    df["Land Class"].isin(selected_land_classes) &
-    df["State"].isin(selected_states) &
-    df["Land Category"].isin(selected_land_categories)
-]
+    with st.sidebar.expander("📊 Filter Data", expanded=True):
+        selected_years = st.multiselect("📅 Select Year(s):", options=years, default=years)
+        selected_land_classes = st.multiselect("🏞️ Select Land Class(es):", options=land_classes, default=land_classes)
+        selected_states = st.multiselect("📍 Select State(s):", options=states, default=states)
+        selected_land_categories = st.multiselect("🌍 Select Land Category(es):", options=land_category, default=land_category)
 
-# Dataset preview
-st.subheader("Dataset Preview")
-st.dataframe(filtered_df.head())
+    # Apply filters
+    filtered_df = df[
+        df["Calendar Year"].isin(selected_years) &
+        df["Land Class"].isin(selected_land_classes) &
+        df["State"].isin(selected_states) &
+        df["Land Category"].isin(selected_land_categories)
+    ]
 
-# Revenue Trends over Years
-st.subheader("Revenue Trends Over the Years")
-revenue_trends = filtered_df.groupby("Calendar Year")["Revenue"].sum().reset_index()
+    # Dataset preview
+    st.subheader("Dataset Preview")
+    st.dataframe(filtered_df.head())
 
-fig1, ax1 = plt.subplots(figsize=(6, 3))
-sns.lineplot(data=revenue_trends, x="Calendar Year", y="Revenue", ax=ax1)
-ax1.set_title("Revenue Trends Over the Years", fontsize=11)
-ax1.set_xlabel("Year", fontsize= 8)
-ax1.set_ylabel("Revenue", fontsize=8)
-st.pyplot(fig1)
+    # Revenue Trends over Years
+    st.subheader("Revenue Trends Over the Years")
+    revenue_trends = filtered_df.groupby("Calendar Year")["Revenue"].sum().reset_index()
 
-# Revenue by Land Class
-st.subheader("Revenue by Land Class")
-revenue_landclass = filtered_df.groupby("Land Class")["Revenue"].sum()
+    fig1, ax1 = plt.subplots(figsize=(6, 3))
+    sns.lineplot(data=revenue_trends, x="Calendar Year", y="Revenue", ax=ax1)
+    ax1.set_title("Revenue Trends Over the Years", fontsize=11)
+    ax1.set_xlabel("Year", fontsize= 8)
+    ax1.set_ylabel("Revenue", fontsize=8)
+    st.pyplot(fig1)
 
-fig2, ax2 = plt.subplots(figsize=(3,2))
-revenue_landclass.plot(kind="pie", autopct="%.2f%%", ax=ax2)
-ax2.set_ylabel("")
-ax2.set_title("Revenue Distribution by Land Class", fontsize=11)
-st.pyplot(fig2)
+    # Revenue by Land Class
+    st.subheader("Revenue by Land Class")
+    revenue_landclass = filtered_df.groupby("Land Class")["Revenue"].sum()
 
-# Revenue by Land Category
-st.subheader("Revenue by Land Category")
-revenue_landcategory = filtered_df.groupby("Land Category")["Revenue"].sum().sort_values(ascending=False)
+    fig2, ax2 = plt.subplots(figsize=(3,2))
+    revenue_landclass.plot(kind="pie", autopct="%.2f%%", ax=ax2)
+    ax2.set_ylabel("")
+    ax2.set_title("Revenue Distribution by Land Class", fontsize=11)
+    st.pyplot(fig2)
 
-fig3, ax3 = plt.subplots(figsize=(3, 2))
-revenue_landcategory.plot(kind="bar", ax=ax3)
-ax3.set_ylabel("")
-ax3.set_title("Revenue Distribution by Land Category", fontsize=11)
-st.pyplot(fig3)
+    # Revenue by Land Category
+    st.subheader("Revenue by Land Category")
+    revenue_landcategory = filtered_df.groupby("Land Category")["Revenue"].sum().sort_values(ascending=False)
 
-# State by Revenue
-st.subheader("State by Revenue")
-state_revenue = filtered_df.groupby("State")["Revenue"].sum().sort_values(ascending=False)
+    fig3, ax3 = plt.subplots(figsize=(3, 2))
+    revenue_landcategory.plot(kind="bar", ax=ax3)
+    ax3.set_ylabel("")
+    ax3.set_title("Revenue Distribution by Land Category", fontsize=11)
+    st.pyplot(fig3)
 
-fig4, ax4 = plt.subplots(figsize=(4, 3))
-state_revenue.plot(kind="bar", width=0.7, ax=ax4)
-ax4.set_ylabel("")
-ax4.set_title("State by Revenue", fontsize=11)
-st.pyplot(fig4)
+    # State by Revenue
+    st.subheader("State by Revenue")
+    state_revenue = filtered_df.groupby("State")["Revenue"].sum().sort_values(ascending=False).head(10)
 
-# Correlation Analysis
-st.subheader("Correlation Analysis")
-fig5, ax5 = plt.subplots()
-sns.heatmap(filtered_df.select_dtypes(include=['float64', 'int64']).corr(), annot=True, ax=ax5)
-ax5.set_title("Correlation Analysis", fontsize=11)
-st.pyplot(fig5)
+    fig4, ax4 = plt.subplots(figsize=(4, 3))
+    state_revenue.plot(kind="bar", width=0.7, ax=ax4)
+    ax4.set_ylabel("")
+    ax4.set_title("State by Revenue", fontsize=11)
+    st.pyplot(fig4)
 
-# County by Revenue
-st.subheader("County by Revenue")
-county_revenue = filtered_df.groupby("County")["Revenue"].sum().sort_values(ascending=False)
+    # Correlation Analysis
+    st.subheader("Correlation Analysis")
+    fig5, ax5 = plt.subplots()
+    sns.heatmap(filtered_df.select_dtypes(include=['float64', 'int64']).corr(), annot=True, ax=ax5)
+    ax5.set_title("Correlation Analysis", fontsize=11)
+    st.pyplot(fig5)
+
+    # County by Revenue
+    st.subheader("County by Revenue")
+    county_revenue = filtered_df.groupby("County")["Revenue"].sum().sort_values(ascending=False).head(10)
 
 fig6, ax6 = plt.subplots(figsize=(4, 3))
 county_revenue.plot(kind="bar", ax=ax6)
@@ -102,7 +119,7 @@ st.pyplot(fig6)
 
 # Offshore Region Revenue
 st.subheader("Revenue distribution of Offshore region")
-offshore_revenue = filtered_df.groupby("Offshore Region")["Revenue"].sum().sort_values(ascending=False)
+offshore_revenue = filtered_df.groupby("Offshore Region")["Revenue"].sum().sort_values(ascending=False).head(10)
 
 fig7, ax7 = plt.subplots(figsize=(4, 3))
 offshore_revenue.plot(kind="bar", ax=ax7)
@@ -112,7 +129,7 @@ st.pyplot(fig7)
 
 # Revenue by Commodity and Mineral Lease Type
 st.subheader("Total Revenue for Commodity and Mineral Lease type")
-revenue_by_combo = filtered_df.groupby(["Commodity", "Mineral Lease Type"])["Revenue"].sum().sort_values(ascending=False)
+revenue_by_combo = filtered_df.groupby(["Commodity", "Mineral Lease Type"])["Revenue"].sum().sort_values(ascending=False).head(10)
 
 fig8, ax8 = plt.subplots(figsize=(4, 3))
 revenue_by_combo.plot(kind="bar", ax=ax8)
