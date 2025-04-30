@@ -67,10 +67,10 @@ else:
 
     # Revenue by Land Class
     st.subheader("Revenue by Land Class")
+    Revenue_LandClass = pd.DataFrame(filtered_df.groupby('Land_Class').Revenue.sum())
     fig2, ax2 = plt.subplots(figsize=(4,4))
-    ax2.pie(revenue_trends["Revenue"], labels=revenue_trends["Land Class"], autopct='%1.1f%%', startangle=90)
+    Revenue_LandClass.plot(kind = 'pie' , subplots=True, autopct = '%.2f')
     ax2.set_title("Revenue Distribution by Land Class", fontsize = 11)
-    ax2.axis("equal")  # Equal aspect ratio ensures the pie chart is circular
     st.pyplot(fig2)
 
 
