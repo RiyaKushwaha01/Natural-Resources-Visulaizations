@@ -71,19 +71,6 @@ else:
         "Fuel Oil", "Helium"
     ])
 
-    with st.sidebar.expander("📊 Filter Data", expanded=True):
-        selected_years = st.multiselect("📅 Select Year(s):", options=years, default=years)
-        selected_land_classes = st.multiselect("🏜️ Select Land Class(es):", options=land_classes, default=land_classes)
-        selected_states = st.multiselect("📍 Select State(s):", options=states, default=states)
-        selected_land_categories = st.multiselect("🌍 Select Land Category(ies):", options=land_categories, default=land_categories)
-
-    filtered_df = df[
-        df["Calendar Year"].isin(selected_years) &
-        df["Land Class"].isin(selected_land_classes) &
-        df["State"].isin(selected_states) &
-        df["Land Category"].isin(selected_land_categories)
-    ]
-
     # Dataset preview
     st.subheader("Dataset Preview")
     st.dataframe(filtered_df.head())
