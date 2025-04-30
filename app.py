@@ -9,7 +9,7 @@ def login():
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
     if st.button("Login"):
-        if username == "admin" and password == "admin123":  # Replace with your credentials
+        if username == "Riya" and password == "Riya@123":  # Replace with your credentials
             st.session_state["authenticated"] = True
         else:
             st.error("Invalid username or password")
