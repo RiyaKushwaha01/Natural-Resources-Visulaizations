@@ -30,7 +30,8 @@ else:
 
     df = load_data()
 
-    # Dynamic values for multiselects
+    # Sidebar filters
+    st.sidebar.header("Filter Data")
     years = sorted(df["Calendar Year"].dropna().unique())
     land_classes = sorted(df["Land Class"].dropna().unique())
     states = sorted(df["State"].dropna().unique())
@@ -41,8 +42,6 @@ else:
     counties = sorted(df["County"].dropna().unique())
     products = sorted(df["Product"].dropna().unique())
 
-    # Sidebar filters
-    st.sidebar.header("Filter Data")
     selected_years = st.sidebar.multiselect("Calendar Year", years, default=years)
     selected_land_classes = st.sidebar.multiselect("Land Class", land_classes, default=land_classes)
     selected_land_categories = st.sidebar.multiselect("Land Category", land_categories, default=land_categories)
@@ -158,22 +157,4 @@ else:
     # Revenue by Commodity and Mineral Lease Type
     st.subheader("Total Revenue for Commodity and Mineral Lease type")
     revenue_by_combo = (
-        filtered_df.groupby(["Commodity", "Mineral Lease Type"])["Revenue"]
-        .sum()
-        .sort_values(ascending=False)
-        .head(10)
-    )
-    fig8, ax8 = plt.subplots(figsize=(3, 2))
-    revenue_by_combo.plot(kind="bar", ax=ax8)
-    ax8.set_ylabel("")
-    ax8.set_title("Total Revenue for Commodity and Mineral Lease type", fontsize=11)
-    st.pyplot(fig8)
-
-    # Revenue by Revenue Types
-    st.subheader("Revenue by Revenue Types")
-    revenue_rev_type = filtered_df.groupby("Revenue Type")["Revenue"].sum().sort_values(ascending=False)
-    fig9, ax9 = plt.subplots(figsize=(3, 2))
-    revenue_rev_type.plot(kind="barh", ax=ax9)
-    ax9.set_xlabel("Revenue", fontsize=5)
-    ax9.set_title("Revenue by Revenue Types", fontsize=11)
-    st.pyplot(fig9)
+        filtered_df.groupby(["Commodity]()_
