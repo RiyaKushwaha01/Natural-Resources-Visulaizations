@@ -139,6 +139,9 @@ else:
     ax1.set_title("Revenue Trends Over the Years", fontsize=11)
     ax1.set_xlabel("Year", fontsize=8)
     ax1.set_ylabel("Revenue", fontsize=8)
+     # Change tick label size
+    ax1.tick_params(axis='y', labelsize=6)
+    ax1.tick_params(axis='x', labelsize=6)
     st.pyplot(fig1)
 
     # Revenue by Land Class
@@ -156,7 +159,10 @@ else:
     fig3, ax3 = plt.subplots(figsize=(3, 2))
     revenue_landcategory.plot(kind="bar", ax=ax3)
     ax3.set_ylabel("")
-    ax3.set_title("Revenue Distribution by Land Category", fontsize=11)
+    ax3.set_title("Revenue Distribution by Land Category", fontsize=8)
+     # Change tick label size
+    ax3.tick_params(axis='y', labelsize=6)
+    ax3.tick_params(axis='x', labelsize=6)
     st.pyplot(fig3)
 
     # State by Revenue
@@ -165,7 +171,10 @@ else:
     fig4, ax4 = plt.subplots(figsize=(3, 2))
     state_revenue.plot(kind="bar", width=0.7, ax=ax4)
     ax4.set_ylabel("")
-    ax4.set_title("State by Revenue", fontsize=11)
+    ax4.set_title("State by Revenue", fontsize=8)
+     # Change tick label size
+    ax4.tick_params(axis='y', labelsize=6)
+    ax4.tick_params(axis='x', labelsize=6)
     st.pyplot(fig4)
 
     # Correlation Analysis
@@ -230,6 +239,9 @@ else:
     ax8.set_xlabel("Revenue", fontsize=6)
     ax8.set_ylabel("", fontsize=6)
     ax8.set_title("Total Revenue for Commodity and Mineral Lease type", fontsize=8)
+     # Change tick label size
+    ax8.tick_params(axis='y', labelsize=6)
+    ax8.tick_params(axis='x', labelsize=6)
     st.pyplot(fig8)
 
     # Revenue by Revenue Types
