@@ -31,17 +31,63 @@ else:
     df = load_data()
 
     # Sidebar filters
-    st.sidebar.header("Filter Data")
+st.sidebar.header("Filter Data")
 
-    # Input fields for each feature
-    land_class = st.selectbox("Land Class", ["Federal", "Native American"])
-    land_category = st.selectbox("Land Category", ["Onshore", "Offshore", "Not Tied to a Lease"])
-    state = st.selectbox("State", ["Texas", "Alaska", "California", "Georgia", "New York", "New Mexico", "Indiana", "Florida", "Washington"])
-    revenue_type = st.selectbox("Royalties", ["Royalty", "Bonus", "Rent", "Inspection fees", "Civil penalties", "Other revenue"])
-    lease_type = st.selectbox("Mineral Lease Type", ["Limestone", "Gold", "Coal", "Silver", "Oil & Gas", "Sulfur", "Gilsonite", "Gypsum", "Sodium", "Phosphate", "Gemstones"])
-    commodity = st.selectbox("Commodity", ["Oil", "Gas", "Coal", "Copper", "Hardrock", "Natural gas liquids", "Gilsonite", "Phosphate", "Oil & gas (pre-production)", "Geothermal"])
-    county = st.selectbox("County", ["Carbon", "Eddy", "Sweet Water", "Bannock", "Goshen", "Iron", "Cleveland", "Franklin", "Washington", "Chambers"])
-    product = st.selectbox("Product", ["Nitrogen", "Oil", "Coal Bed Methane", "Coal", "Gas Plant Products", "Calcium Oxide", "Carbon Dioxide Gas (CO2)", "Fuel Gas", "Fuel Oil", "Helium"])
+land_class = st.sidebar.selectbox(
+    "Land Class", ["Federal", "Native American"]
+)
+
+land_category = st.sidebar.selectbox(
+    "Land Category", ["Onshore", "Offshore", "Not Tied to a Lease"]
+)
+
+state = st.sidebar.selectbox(
+    "State", [
+        "Texas", "Alaska", "California", "Georgia", "New York",
+        "New Mexico", "Indiana", "Florida", "Washington"
+    ]
+)
+
+revenue_type = st.sidebar.selectbox(
+    "Royalties", [
+        "Royalty", "Bonus", "Rent", "Inspection fees",
+        "Civil penalties", "Other revenue"
+    ]
+)
+
+lease_type = st.sidebar.selectbox(
+    "Mineral Lease Type", [
+        "Limestone", "Gold", "Coal", "Silver", "Oil & Gas",
+        "Sulfur", "Gilsonite", "Gypsum", "Sodium",
+        "Phosphate", "Gemstones"
+    ]
+)
+
+commodity = st.sidebar.selectbox(
+    "Commodity", [
+        "Oil", "Gas", "Coal", "Copper", "Hardrock",
+        "Natural gas liquids", "Gilsonite", "Phosphate",
+        "Oil & gas (pre-production)", "Geothermal"
+    ]
+)
+
+county = st.sidebar.selectbox(
+    "County", [
+        "Carbon", "Eddy", "Sweet Water", "Bannock",
+        "Goshen", "Iron", "Cleveland", "Franklin",
+        "Washington", "Chambers"
+    ]
+)
+
+product = st.sidebar.selectbox(
+    "Product", [
+        "Nitrogen", "Oil", "Coal Bed Methane", "Coal",
+        "Gas Plant Products", "Calcium Oxide",
+        "Carbon Dioxide Gas (CO2)", "Fuel Gas",
+        "Fuel Oil", "Helium"
+    ]
+)
+
 
     with st.sidebar.expander("📊 Filter Data", expanded=True):
         selected_years = st.multiselect("📅 Select Year(s):", options=years, default=years)
