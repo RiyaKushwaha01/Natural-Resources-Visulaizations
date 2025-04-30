@@ -71,6 +71,20 @@ else:
         "Fuel Oil", "Helium"
     ])
 
+    # Apply all filters
+    filtered_df = df[
+        (df["Calendar Year"].isin(selected_years)) &
+        (df["Land Class"].isin(selected_land_classes)) &
+        (df["State"].isin(selected_states)) &
+        (df["Land Category"].isin(selected_land_categories)) &
+        (df["State"] == state) &
+        (df["Revenue Type"] == revenue_type) &
+        (df["Mineral Lease Type"] == lease_type) &
+        (df["Commodity"] == commodity) &
+        (df["County"] == county) &
+        (df["Product"] == product)
+    ]
+
     # Dataset preview
     st.subheader("Dataset Preview")
     st.dataframe(filtered_df.head())
