@@ -30,27 +30,31 @@ else:
 
     df = load_data()
 
-    # Sidebar filters
-    st.sidebar.header("Filter Data")
-    years = sorted(df["Calendar Year"].dropna().unique())
-    land_classes = sorted(df["Land Class"].dropna().unique())
-    states = sorted(df["State"].dropna().unique())
-    land_categories = sorted(df["Land Category"].dropna().unique())
-    revenue_types = sorted(df["Revenue Type"].dropna().unique())
-    lease_types = sorted(df["Mineral Lease Type"].dropna().unique())
-    commodities = sorted(df["Commodity"].dropna().unique())
-    counties = sorted(df["County"].dropna().unique())
-    products = sorted(df["Product"].dropna().unique())
+   # Sidebar filters in collapsible dropdown
+    with st.sidebar.expander("🔍 Filter Data", expanded=True):
+        selected_years = st.multiselect("Calendar Year", years)
+        selected_land_classes = st.multiselect("Land Class", land_classes)
+        selected_land_categories = st.multiselect("Land Category", land_categories)
+        selected_states = st.multiselect("State", states)
+        selected_revenue_types = st.multiselect("Revenue Type", revenue_types)
+        selected_lease_types = st.multiselect("Mineral Lease Type", lease_types)
+        selected_commodities = st.multiselect("Commodity", commodities)
+        selected_counties = st.multiselect("County", counties)
+        selected_products = st.multiselect("Product", products)
 
-    selected_years = st.sidebar.multiselect("Calendar Year", years, default=years)
-    selected_land_classes = st.sidebar.multiselect("Land Class", land_classes, default=land_classes)
-    selected_land_categories = st.sidebar.multiselect("Land Category", land_categories, default=land_categories)
-    selected_states = st.sidebar.multiselect("State", states, default=states)
-    selected_revenue_types = st.sidebar.multiselect("Revenue Type", revenue_types, default=revenue_types)
-    selected_lease_types = st.sidebar.multiselect("Mineral Lease Type", lease_types, default=lease_types)
-    selected_commodities = st.sidebar.multiselect("Commodity", commodities, default=commodities)
-    selected_counties = st.sidebar.multiselect("County", counties, default=counties)
-    selected_products = st.sidebar.multiselect("Product", products, default=products)
+    # Apply filters
+    filtered_df = df[
+        df["Calendar Year"].isin(selected_years if selected_years else years) &
+        df["Land Class"].isin(selected_land_classes if selected_land_classes else land_classes) &
+        df["Land Category"].isin(selected_land_categories if selected_land_categories else land_categories) &
+        df["State"].isin(selected_states if selected_states else states) &
+        df["Revenue Type"].isin(selected_revenue_types if selected_revenue_types else revenue_types) &
+        df["Mineral Lease Type"].isin(selected_lease_types if selected_lease_types else lease_types) &
+        df["Commodity"].isin(selected_commodities if selected_commodities else commodities) &
+        df["County"].isin(selected_counties if selected_counties else counties) &
+        df["Product"].isin(selected_products if selected_products else products)
+    ]
+
 
     # Apply filters
     filtered_df = df[
