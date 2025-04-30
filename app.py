@@ -227,8 +227,9 @@ else:
     )
     fig8, ax8 = plt.subplots(figsize=(3, 2))
     revenue_by_combo.plot(kind="bar", ax=ax8)
-    ax8.set_ylabel("")
-    ax8.set_title("Total Revenue for Commodity and Mineral Lease type", fontsize=11)
+    ax8.set_xlabel("Revenue", fontsize=6)
+    ax8.set_ylabel("", fontsize=6)
+    ax8.set_title("Total Revenue for Commodity and Mineral Lease type", fontsize=8)
     st.pyplot(fig8)
 
     # Revenue by Revenue Types
