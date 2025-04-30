@@ -109,23 +109,48 @@ else:
 
     # County by Revenue
     st.subheader("County by Revenue")
-    county_revenue = filtered_df.groupby("County")["Revenue"].sum().sort_values(ascending=False).head(10)
+    if "County" in filtered_df.columns and not filtered_df["County"].dropna().empty:
+        county_revenue = (
+            filtered_df.dropna(subset=["County"])
+            .groupby("County")["Revenue"]
+            .sum()
+            .sort_values(ascending=False)
+            .head(10)
+        )
 
-    fig6, ax6 = plt.subplots(figsize=(4, 3))
-    county_revenue.plot(kind="bar", ax=ax6)
-    ax6.set_ylabel("")
-    ax6.set_title("County by Revenue", fontsize=11)
-    st.pyplot(fig6)
+    if not county_revenue.empty:
+        fig6, ax6 = plt.subplots(figsize=(4, 3))
+        county_revenue.plot(kind="bar", ax=ax6)
+        ax6.set_ylabel("")
+        ax6.set_title("County by Revenue", fontsize=11)
+        st.pyplot(fig6)
+    else:
+        st.warning("No county data available after filtering.")
+    else:
+        st.warning("County column missing or contains only NaN.")
+
 
     # Offshore Region Revenue
     st.subheader("Revenue distribution of Offshore region")
-    offshore_revenue = filtered_df.groupby("Offshore Region")["Revenue"].sum().sort_values(ascending=False).head(10)
+    if "Offshore Region" in filtered_df.columns and not filtered_df["Offshore Region"].dropna().empty:
+        offshore_revenue = (
+            filtered_df.dropna(subset=["Offshore Region"])
+            .groupby("Offshore Region")["Revenue"]
+            .sum()
+            .sort_values(ascending=False)
+            .head(10)
+        )
 
-    fig7, ax7 = plt.subplots(figsize=(4, 3))
-    offshore_revenue.plot(kind="bar", ax=ax7)
-    ax7.set_ylabel("")
-    ax7.set_title("Revenue distribution of Offshore region", fontsize=11)
-    st.pyplot(fig7)
+    if not offshore_revenue.empty:
+        fig7, ax7 = plt.subplots(figsize=(4, 3))
+        offshore_revenue.plot(kind="bar", ax=ax7)
+        ax7.set_ylabel("")
+        ax7.set_title("Revenue distribution of Offshore region", fontsize=11)
+        st.pyplot(fig7)
+    else:
+        st.warning("No offshore region data available after filtering.")
+    else:
+        st.warning("Offshore Region column missing or empty.")
 
     # Revenue by Commodity and Mineral Lease Type
     st.subheader("Total Revenue for Commodity and Mineral Lease type")
