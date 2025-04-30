@@ -145,9 +145,8 @@ else:
     st.subheader("Revenue by Land Class")
     Revenue_LandClass = pd.DataFrame(filtered_df.groupby('Land Class').Revenue.sum()).reset_index()
     fig2, ax2 = plt.subplots(figsize=(6, 4))
-    ax2.pie(Revenue_LandClass['Revenue'], labels=Revenue_LandClass['Land Class'], autopct='%.2f%%', startangle=90)
+    ax2.pie(Revenue_LandClass['Revenue'], labels=Revenue_LandClass['Land Class'], autopct='%.2f%%')
     ax2.set_title("Revenue Distribution by Land Class", fontsize=11)
-    ax2.axis('equal')
     st.pyplot(fig2)
 
     # Revenue by Land Category
