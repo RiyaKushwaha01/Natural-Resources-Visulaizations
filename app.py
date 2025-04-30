@@ -67,12 +67,12 @@ else:
 
     # Revenue by Land Class
     st.subheader("Revenue by Land Class")
-    revenue_landclass = filtered_df.groupby("Land Class")["Revenue"].sum()
-    fig2, ax2 = plt.subplots(figsize=(3, 2))
-    revenue_landclass.plot(kind="pie", autopct="%.2f%%", ax=ax2)
-    ax2.set_ylabel("")
-    ax2.set_title("Revenue Distribution by Land Class", fontsize=11)
+    fig2, ax2 = plt.subplots(figsize=(4,4))
+    ax2.pie(revenue_trends["Revenue"], labels=revenue_trends["Land Class"], autopct='%1.1f%%', startangle=90)
+    ax2.set_title("Revenue Distribution by Land Class", fontsize = 11)
+    ax2.axis("equal")  # Equal aspect ratio ensures the pie chart is circular
     st.pyplot(fig2)
+
 
     # Revenue by Land Category
     st.subheader("Revenue by Land Category")
@@ -86,7 +86,7 @@ else:
     # State by Revenue
     st.subheader("State by Revenue")
     state_revenue = filtered_df.groupby("State")["Revenue"].sum().sort_values(ascending=False).head(10)
-    fig4, ax4 = plt.subplots(figsize=(4, 3))
+    fig4, ax4 = plt.subplots(figsize=(3,2))
     state_revenue.plot(kind="bar", width=0.7, ax=ax4)
     ax4.set_ylabel("")
     ax4.set_title("State by Revenue", fontsize=11)
@@ -111,7 +111,7 @@ else:
         )
 
         if not county_revenue.empty:
-            fig6, ax6 = plt.subplots(figsize=(4, 3))
+            fig6, ax6 = plt.subplots(figsize=(3,2))
             county_revenue.plot(kind="bar", ax=ax6)
             ax6.set_ylabel("")
             ax6.set_title("County by Revenue", fontsize=11)
@@ -123,7 +123,7 @@ else:
 
     # Offshore Region Revenue
     st.subheader("Revenue distribution of Offshore region")
-    if "Offshore Region" in filtered_df.columns and not filtered_df["Offshore Region"].dropna().empty:
+    if "Offshore Region" in filtered_df.columns and not filtered_df["Offshore Region"].dropna() 
         offshore_revenue = (
             filtered_df.dropna(subset=["Offshore Region"])
             .groupby("Offshore Region")["Revenue"]
@@ -132,7 +132,7 @@ else:
             .head(10)
         )
 
-        if not offshore_revenue.empty:
+        if not offshore_revenue 
             fig7, ax7 = plt.subplots(figsize=(4, 3))
             offshore_revenue.plot(kind="bar", ax=ax7)
             ax7.set_ylabel("")
@@ -146,7 +146,7 @@ else:
     # Revenue by Commodity and Mineral Lease Type
     st.subheader("Total Revenue for Commodity and Mineral Lease type")
     revenue_by_combo = filtered_df.groupby(["Commodity", "Mineral Lease Type"])["Revenue"].sum().sort_values(ascending=False).head(10)
-    fig8, ax8 = plt.subplots(figsize=(4, 3))
+    fig8, ax8 = plt.subplots(figsize=(3,2))
     revenue_by_combo.plot(kind="bar", ax=ax8)
     ax8.set_ylabel("")
     ax8.set_title("Total Revenue for Commodity and Mineral Lease type", fontsize=11)
@@ -155,7 +155,7 @@ else:
     # Revenue by Revenue Types
     st.subheader("Revenue by Revenue Types")
     revenue_rev_type = filtered_df.groupby("Revenue Type")["Revenue"].sum().sort_values(ascending=False)
-    fig9, ax9 = plt.subplots(figsize=(4, 3))
+    fig9, ax9 = plt.subplots(figsize=(3,2))
     revenue_rev_type.plot(kind="barh", ax=ax9)
     ax9.set_xlabel("Revenue", fontsize=5)
     ax9.set_title("Revenue by Revenue Types", fontsize=11)
