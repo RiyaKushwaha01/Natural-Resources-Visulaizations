@@ -24,10 +24,11 @@ land_classes = sorted(df["Land Class"].dropna().unique())
 states = sorted(df["State"].dropna().unique())
 land_category = sorted(df["Land Category"].dropna().unique())
 
-selected_years = st.sidebar.multiselect("Select Year(s):", years, default=years)
-selected_land_classes = st.sidebar.multiselect("Select Land Class(es):", land_classes, default=land_classes)
-selected_states = st.sidebar.multiselect("Select State(s):", states, default=states)
-selected_land_categories = st.sidebar.multiselect("Select Land Category(es):", land_category, default=land_category)
+with st.sidebar.expander("📊 Filter Data", expanded=True):
+    selected_years = st.multiselect("📅 Select Year(s):", options=years, default=years)
+    selected_land_classes = st.multiselect("🏞️ Select Land Class(es):", options=land_classes, default=land_classes)
+    selected_states = st.multiselect("📍 Select State(s):", options=states, default=states)
+    selected_land_categories = st.multiselect("🌍 Select Land Category(es):", options=land_category, default=land_category)
 
 # Apply filters
 filtered_df = df[
