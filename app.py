@@ -47,7 +47,7 @@ else:
         selected_years = st.multiselect(
             "Select Calendar Year(s)",
             options=years,
-            default=[years],
+            default=[],
             help="Choose one or more calendar years"
         )
 
