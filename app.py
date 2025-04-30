@@ -35,57 +35,37 @@ else:
     land_classes = sorted(df["Land Class"].dropna().unique())
     states = sorted(df["State"].dropna().unique())
     land_categories = sorted(df["Land Category"].dropna().unique())
+    revenue_types = sorted(df["Revenue Type"].dropna().unique())
+    lease_types = sorted(df["Mineral Lease Type"].dropna().unique())
+    commodities = sorted(df["Commodity"].dropna().unique())
+    counties = sorted(df["County"].dropna().unique())
+    products = sorted(df["Product"].dropna().unique())
 
     # Sidebar filters
     st.sidebar.header("Filter Data")
+    selected_years = st.sidebar.multiselect("Calendar Year", years, default=years)
+    selected_land_classes = st.sidebar.multiselect("Land Class", land_classes, default=land_classes)
+    selected_land_categories = st.sidebar.multiselect("Land Category", land_categories, default=land_categories)
+    selected_states = st.sidebar.multiselect("State", states, default=states)
+    selected_revenue_types = st.sidebar.multiselect("Revenue Type", revenue_types, default=revenue_types)
+    selected_lease_types = st.sidebar.multiselect("Mineral Lease Type", lease_types, default=lease_types)
+    selected_commodities = st.sidebar.multiselect("Commodity", commodities, default=commodities)
+    selected_counties = st.sidebar.multiselect("County", counties, default=counties)
+    selected_products = st.sidebar.multiselect("Product", products, default=products)
 
-    calendar_year = st.sidebar.selectbox("Calendar Year",["2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023"])
-    land_class = st.sidebar.selectbox("Land Class", ["Federal", "Native American"])
-    land_category = st.sidebar.selectbox("Land Category", ["Onshore", "Offshore", "Not Tied to a Lease"])
-    state = st.sidebar.selectbox("State", [
-        "Texas", "Alaska", "California", "Georgia", "New York",
-        "New Mexico", "Indiana", "Florida", "Washington"
-    ])
-    revenue_type = st.sidebar.selectbox("Royalties", [
-        "Royalty", "Bonus", "Rent", "Inspection fees",
-        "Civil penalties", "Other revenue"
-    ])
-    lease_type = st.sidebar.selectbox("Mineral Lease Type", [
-        "Limestone", "Gold", "Coal", "Silver", "Oil & Gas",
-        "Sulfur", "Gilsonite", "Gypsum", "Sodium",
-        "Phosphate", "Gemstones"
-    ])
-    commodity = st.sidebar.selectbox("Commodity", [
-        "Oil", "Gas", "Coal", "Copper", "Hardrock",
-        "Natural gas liquids", "Gilsonite", "Phosphate",
-        "Oil & gas (pre-production)", "Geothermal"
-    ])
-    county = st.sidebar.selectbox("County", [
-        "Carbon", "Eddy", "Sweet Water", "Bannock",
-        "Goshen", "Iron", "Cleveland", "Franklin",
-        "Washington", "Chambers"
-    ])
-    product = st.sidebar.selectbox("Product", [
-        "Nitrogen", "Oil", "Coal Bed Methane", "Coal",
-        "Gas Plant Products", "Calcium Oxide",
-        "Carbon Dioxide Gas (CO2)", "Fuel Gas",
-        "Fuel Oil", "Helium"
-    ])
-
+    # Apply filters
     filtered_df = df[
-    (df["Calendar Year"] == int(calendar_year)) &
-    (df["Land Class"] == land_class) &
-    (df["Land Category"] == land_category) &
-    (df["State"] == state) &
-    (df["Revenue Type"] == revenue_type) &
-    (df["Mineral Lease Type"] == lease_type) &
-    (df["Commodity"] == commodity) &
-    (df["County"] == county) &
-    (df["Product"] == product)
-]
+        df["Calendar Year"].isin(selected_years) &
+        df["Land Class"].isin(selected_land_classes) &
+        df["Land Category"].isin(selected_land_categories) &
+        df["State"].isin(selected_states) &
+        df["Revenue Type"].isin(selected_revenue_types) &
+        df["Mineral Lease Type"].isin(selected_lease_types) &
+        df["Commodity"].isin(selected_commodities) &
+        df["County"].isin(selected_counties) &
+        df["Product"].isin(selected_products)
+    ]
 
-
-    # Dataset preview
     st.subheader("Dataset Preview")
     st.dataframe(filtered_df.head())
 
