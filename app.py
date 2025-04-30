@@ -43,7 +43,7 @@ else:
     counties = sorted(df["County"].dropna().unique())
     products = sorted(df["Product"].dropna().unique())
 
-    with st.sidebar.expander("📅 Calendar Year", expanded=True):
+    with st.sidebar.expander("🗕️ Calendar Year", expanded=True):
         selected_years = st.multiselect(
             "Select Calendar Year(s)",
             options=years,
@@ -51,19 +51,69 @@ else:
             help="Choose one or more calendar years"
         )
 
-    with st.sidebar.expander("🌍 Land Class & Category"):
-        selected_land_classes = st.multiselect("Land Class", land_classes, default=land_classes)
-        selected_land_categories = st.multiselect("Land Category", land_categories, default=land_categories)
+    with st.sidebar.expander("🌍 Land Class", expanded=True):
+        selected_land_classes = st.multiselect(
+            "Select Land Class(es)",
+            options=land_classes,
+            default=land_classes,
+            help="Choose one or more land classes"
+        )
 
-    with st.sidebar.expander("🗺️ Location"):
-        selected_states = st.multiselect("State", states, default=states)
-        selected_counties = st.multiselect("County", counties, default=counties)
+    with st.sidebar.expander("🏷️ Land Category", expanded=True):
+        selected_land_categories = st.multiselect(
+            "Select Land Category(ies)",
+            options=land_categories,
+            default=land_categories,
+            help="Choose one or more land categories"
+        )
 
-    with st.sidebar.expander("💰 Revenue, Lease & Commodity"):
-        selected_revenue_types = st.multiselect("Revenue Type", revenue_types, default=revenue_types)
-        selected_lease_types = st.multiselect("Mineral Lease Type", lease_types, default=lease_types)
-        selected_commodities = st.multiselect("Commodity", commodities, default=commodities)
-        selected_products = st.multiselect("Product", products, default=products)
+    with st.sidebar.expander("🗜️ State", expanded=True):
+        selected_states = st.multiselect(
+            "Select State(s)",
+            options=states,
+            default=states,
+            help="Choose one or more states"
+        )
+
+    with st.sidebar.expander("🏘️ County", expanded=True):
+        selected_counties = st.multiselect(
+            "Select County(ies)",
+            options=counties,
+            default=counties,
+            help="Choose one or more counties"
+        )
+
+    with st.sidebar.expander("💰 Revenue Type", expanded=True):
+        selected_revenue_types = st.multiselect(
+            "Select Revenue Type(s)",
+            options=revenue_types,
+            default=revenue_types,
+            help="Choose one or more revenue types"
+        )
+
+    with st.sidebar.expander("📄 Mineral Lease Type", expanded=True):
+        selected_lease_types = st.multiselect(
+            "Select Mineral Lease Type(s)",
+            options=lease_types,
+            default=lease_types,
+            help="Choose one or more lease types"
+        )
+
+    with st.sidebar.expander("⛏️ Commodity", expanded=True):
+        selected_commodities = st.multiselect(
+            "Select Commodity(ies)",
+            options=commodities,
+            default=commodities,
+            help="Choose one or more commodities"
+        )
+
+    with st.sidebar.expander("📦 Product", expanded=True):
+        selected_products = st.multiselect(
+            "Select Product(s)",
+            options=products,
+            default=products,
+            help="Choose one or more products"
+        )
 
     # Apply filters
     filtered_df = df[
