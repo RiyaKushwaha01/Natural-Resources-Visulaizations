@@ -43,8 +43,14 @@ else:
     counties = sorted(df["County"].dropna().unique())
     products = sorted(df["Product"].dropna().unique())
 
-    with st.sidebar.expander("📅 Calendar Year"):
-        selected_years = st.multiselect("Select Calendar Year(s)", years, default=years)
+    with st.sidebar.expander("📅 Calendar Year", expanded=True):
+    selected_years = st.multiselect(
+        "Select Calendar Year(s)",
+        options=years,
+        default=[],
+        help="Choose one or more calendar years"
+    )
+
 
     with st.sidebar.expander("🌍 Land Class & Category"):
         selected_land_classes = st.multiselect("Land Class", land_classes, default=land_classes)
