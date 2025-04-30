@@ -55,7 +55,7 @@ else:
         selected_land_classes = st.multiselect(
             "Select Land Class(es)",
             options=land_classes,
-            default=land_classes,
+            default= [],
             help="Choose one or more land classes"
         )
 
@@ -63,7 +63,7 @@ else:
         selected_land_categories = st.multiselect(
             "Select Land Category(ies)",
             options=land_categories,
-            default=land_categories,
+            default= [],
             help="Choose one or more land categories"
         )
 
@@ -71,7 +71,7 @@ else:
         selected_states = st.multiselect(
             "Select State(s)",
             options=states,
-            default=states,
+            default=[],
             help="Choose one or more states"
         )
 
