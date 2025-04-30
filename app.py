@@ -111,38 +111,38 @@ else:
     st.subheader("County by Revenue")
     county_revenue = filtered_df.groupby("County")["Revenue"].sum().sort_values(ascending=False).head(10)
 
-fig6, ax6 = plt.subplots(figsize=(4, 3))
-county_revenue.plot(kind="bar", ax=ax6)
-ax6.set_ylabel("")
-ax6.set_title("County by Revenue", fontsize=11)
-st.pyplot(fig6)
+    fig6, ax6 = plt.subplots(figsize=(4, 3))
+    county_revenue.plot(kind="bar", ax=ax6)
+    ax6.set_ylabel("")
+    ax6.set_title("County by Revenue", fontsize=11)
+    st.pyplot(fig6)
 
-# Offshore Region Revenue
-st.subheader("Revenue distribution of Offshore region")
-offshore_revenue = filtered_df.groupby("Offshore Region")["Revenue"].sum().sort_values(ascending=False).head(10)
+    # Offshore Region Revenue
+    st.subheader("Revenue distribution of Offshore region")
+    offshore_revenue = filtered_df.groupby("Offshore Region")["Revenue"].sum().sort_values(ascending=False).head(10)
 
-fig7, ax7 = plt.subplots(figsize=(4, 3))
-offshore_revenue.plot(kind="bar", ax=ax7)
-ax7.set_ylabel("")
-ax7.set_title("Revenue distribution of Offshore region", fontsize=11)
-st.pyplot(fig7)
+    fig7, ax7 = plt.subplots(figsize=(4, 3))
+    offshore_revenue.plot(kind="bar", ax=ax7)
+    ax7.set_ylabel("")
+    ax7.set_title("Revenue distribution of Offshore region", fontsize=11)
+    st.pyplot(fig7)
 
-# Revenue by Commodity and Mineral Lease Type
-st.subheader("Total Revenue for Commodity and Mineral Lease type")
-revenue_by_combo = filtered_df.groupby(["Commodity", "Mineral Lease Type"])["Revenue"].sum().sort_values(ascending=False).head(10)
+    # Revenue by Commodity and Mineral Lease Type
+    st.subheader("Total Revenue for Commodity and Mineral Lease type")
+    revenue_by_combo = filtered_df.groupby(["Commodity", "Mineral Lease Type"])["Revenue"].sum().sort_values(ascending=False).head(10)
 
-fig8, ax8 = plt.subplots(figsize=(4, 3))
-revenue_by_combo.plot(kind="bar", ax=ax8)
-ax8.set_ylabel("")
-ax8.set_title("Total Revenue for Commodity and Mineral Lease type", fontsize=11)
-st.pyplot(fig8)
+    fig8, ax8 = plt.subplots(figsize=(4, 3))
+    revenue_by_combo.plot(kind="bar", ax=ax8)
+    ax8.set_ylabel("")
+    ax8.set_title("Total Revenue for Commodity and Mineral Lease type", fontsize=11)
+    st.pyplot(fig8)
 
-# Revenue by Revenue Types
-st.subheader("Revenue by Revenue Types")
-revenue_rev_type = filtered_df.groupby("Revenue Type")["Revenue"].sum().sort_values(ascending=False)
+    # Revenue by Revenue Types
+    st.subheader("Revenue by Revenue Types")
+    revenue_rev_type = filtered_df.groupby("Revenue Type")["Revenue"].sum().sort_values(ascending=False)
 
-fig9, ax9 = plt.subplots(figsize=(4, 3))
-revenue_rev_type.plot(kind="barh", ax=ax9)
-ax9.set_xlabel("Revenue", fontsize=5)
-ax9.set_title("Revenue by Revenue Types", fontsize=11)
-st.pyplot(fig9)
+    fig9, ax9 = plt.subplots(figsize=(4, 3))
+    revenue_rev_type.plot(kind="barh", ax=ax9)
+    ax9.set_xlabel("Revenue", fontsize=5)
+    ax9.set_title("Revenue by Revenue Types", fontsize=11)
+    st.pyplot(fig9)
