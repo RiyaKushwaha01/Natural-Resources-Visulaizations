@@ -47,7 +47,7 @@ else:
         selected_years = st.multiselect(
             "Select Calendar Year(s)",
             options=years,
-            default=[],
+            default=[years],
             help="Choose one or more calendar years"
         )
 
@@ -55,7 +55,7 @@ else:
         selected_land_classes = st.multiselect(
             "Select Land Class(es)",
             options=land_classes,
-            default= [],
+            default= [land_classes],
             help="Choose one or more land classes"
         )
 
@@ -63,7 +63,7 @@ else:
         selected_land_categories = st.multiselect(
             "Select Land Category(ies)",
             options=land_categories,
-            default= [],
+            default= [land_categories],
             help="Choose one or more land categories"
         )
 
@@ -71,7 +71,7 @@ else:
         selected_states = st.multiselect(
             "Select State(s)",
             options=states,
-            default=[],
+            default=[states],
             help="Choose one or more states"
         )
 
@@ -143,17 +143,17 @@ else:
 
     # Revenue by Land Class
     st.subheader("Revenue by Land Class")
-    Revenue_LandClass = pd.DataFrame(filtered_df.groupby('Land Class').Revenue.sum()).reset_index()
+    Revenue_LandClass = filtered_df.groupby('Land_Class').Revenue.sum()
     fig2, ax2 = plt.subplots(figsize=(6, 4))
-    ax2.pie(Revenue_LandClass['Revenue'], labels=Revenue_LandClass['Land Class'], autopct='%.2f%%')
+    Revenue_LandClass.plot(kind = 'pie' , subplots=True, autopct = '%.2f')
     ax2.set_title("Revenue Distribution by Land Class", fontsize=11)
     st.pyplot(fig2)
 
     # Revenue by Land Category
     st.subheader("Revenue by Land Category")
-    revenue_landcategory = filtered_df.groupby("Land Category")["Revenue"].sum().sort_values(ascending=False)
+    Revenue_LandCategory = filtered_df.groupby('Land_Category').Revenue.sum().sort_values(ascending = False)
     fig3, ax3 = plt.subplots(figsize=(3, 2))
-    revenue_landcategory.plot(kind="bar", ax=ax3)
+    Revenue_LandCategory.plot(kind = 'bar', figsize = (4,3))
     ax3.set_ylabel("")
     ax3.set_title("Revenue Distribution by Land Category", fontsize=11)
     st.pyplot(fig3)
@@ -197,24 +197,12 @@ else:
 
     # Offshore Region Revenue
     st.subheader("Revenue distribution of Offshore region")
-    if "Offshore Region" in filtered_df.columns and not filtered_df["Offshore Region"].dropna().empty:
-        offshore_revenue = (
-            filtered_df.dropna(subset=["Offshore Region"])
-            .groupby("Offshore Region")["Revenue"]
-            .sum()
-            .sort_values(ascending=False)
-            .head(10)
-        )
-        if not offshore_revenue.empty:
-            fig7, ax7 = plt.subplots(figsize=(4, 3))
-            offshore_revenue.plot(kind="bar", ax=ax7)
-            ax7.set_ylabel("")
-            ax7.set_title("Revenue distribution of Offshore region", fontsize=11)
-            st.pyplot(fig7)
-        else:
-            st.warning("No offshore region data available after filtering.")
-    else:
-        st.warning("Offshore Region column missing or empty.")
+    Offshore_Revenue = filtered_df.groupby ('Offshore_Region').Revenue.sum().sort_values(ascending = False)
+    fig7, ax7 = plt.subplots(figsize=(3, 2))
+    ax7.title('Revenue Distrinution by Offshore Region',figsize = 11)
+    ax7.xlabel('Offshore Region')
+    ax7.ylabel('Revenue')
+    st.pyplot(fig7)
 
     # Revenue by Commodity and Mineral Lease Type
     st.subheader("Total Revenue for Commodity and Mineral Lease type")
