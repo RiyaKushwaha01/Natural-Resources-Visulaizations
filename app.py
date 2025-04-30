@@ -30,70 +30,52 @@ else:
 
     df = load_data()
 
+    # Dynamic values for multiselects
+    years = sorted(df["Calendar Year"].dropna().unique())
+    land_classes = sorted(df["Land Class"].dropna().unique())
+    states = sorted(df["State"].dropna().unique())
+    land_categories = sorted(df["Land Category"].dropna().unique())
+
     # Sidebar filters
-st.sidebar.header("Filter Data")
+    st.sidebar.header("Filter Data")
 
-land_class = st.sidebar.selectbox(
-    "Land Class", ["Federal", "Native American"]
-)
-
-land_category = st.sidebar.selectbox(
-    "Land Category", ["Onshore", "Offshore", "Not Tied to a Lease"]
-)
-
-state = st.sidebar.selectbox(
-    "State", [
+    land_class = st.sidebar.selectbox("Land Class", ["Federal", "Native American"])
+    land_category = st.sidebar.selectbox("Land Category", ["Onshore", "Offshore", "Not Tied to a Lease"])
+    state = st.sidebar.selectbox("State", [
         "Texas", "Alaska", "California", "Georgia", "New York",
         "New Mexico", "Indiana", "Florida", "Washington"
-    ]
-)
-
-revenue_type = st.sidebar.selectbox(
-    "Royalties", [
+    ])
+    revenue_type = st.sidebar.selectbox("Royalties", [
         "Royalty", "Bonus", "Rent", "Inspection fees",
         "Civil penalties", "Other revenue"
-    ]
-)
-
-lease_type = st.sidebar.selectbox(
-    "Mineral Lease Type", [
+    ])
+    lease_type = st.sidebar.selectbox("Mineral Lease Type", [
         "Limestone", "Gold", "Coal", "Silver", "Oil & Gas",
         "Sulfur", "Gilsonite", "Gypsum", "Sodium",
         "Phosphate", "Gemstones"
-    ]
-)
-
-commodity = st.sidebar.selectbox(
-    "Commodity", [
+    ])
+    commodity = st.sidebar.selectbox("Commodity", [
         "Oil", "Gas", "Coal", "Copper", "Hardrock",
         "Natural gas liquids", "Gilsonite", "Phosphate",
         "Oil & gas (pre-production)", "Geothermal"
-    ]
-)
-
-county = st.sidebar.selectbox(
-    "County", [
+    ])
+    county = st.sidebar.selectbox("County", [
         "Carbon", "Eddy", "Sweet Water", "Bannock",
         "Goshen", "Iron", "Cleveland", "Franklin",
         "Washington", "Chambers"
-    ]
-)
-
-product = st.sidebar.selectbox(
-    "Product", [
+    ])
+    product = st.sidebar.selectbox("Product", [
         "Nitrogen", "Oil", "Coal Bed Methane", "Coal",
         "Gas Plant Products", "Calcium Oxide",
         "Carbon Dioxide Gas (CO2)", "Fuel Gas",
         "Fuel Oil", "Helium"
-    ]
-)
-
+    ])
 
     with st.sidebar.expander("📊 Filter Data", expanded=True):
         selected_years = st.multiselect("📅 Select Year(s):", options=years, default=years)
         selected_land_classes = st.multiselect("🏜️ Select Land Class(es):", options=land_classes, default=land_classes)
         selected_states = st.multiselect("📍 Select State(s):", options=states, default=states)
-        selected_land_categories = st.multiselect("🌍 Select Land Category(es):", options=land_category, default=land_category)
+        selected_land_categories = st.multiselect("🌍 Select Land Category(ies):", options=land_categories, default=land_categories)
 
     filtered_df = df[
         df["Calendar Year"].isin(selected_years) &
@@ -119,7 +101,7 @@ product = st.sidebar.selectbox(
     # Revenue by Land Class
     st.subheader("Revenue by Land Class")
     Revenue_LandClass = pd.DataFrame(filtered_df.groupby('Land Class').Revenue.sum()).reset_index()
-    fig2, ax2 = plt.subplots(figsize=(6,4))
+    fig2, ax2 = plt.subplots(figsize=(6, 4))
     ax2.pie(Revenue_LandClass['Revenue'], labels=Revenue_LandClass['Land Class'], autopct='%.2f%%', startangle=90)
     ax2.set_title("Revenue Distribution by Land Class", fontsize=11)
     ax2.axis('equal')
@@ -160,7 +142,6 @@ product = st.sidebar.selectbox(
             .sort_values(ascending=False)
             .head(10)
         )
-
         if not county_revenue.empty:
             fig6, ax6 = plt.subplots(figsize=(3, 2))
             county_revenue.plot(kind="bar", ax=ax6)
@@ -182,7 +163,6 @@ product = st.sidebar.selectbox(
             .sort_values(ascending=False)
             .head(10)
         )
-
         if not offshore_revenue.empty:
             fig7, ax7 = plt.subplots(figsize=(4, 3))
             offshore_revenue.plot(kind="bar", ax=ax7)
@@ -196,7 +176,12 @@ product = st.sidebar.selectbox(
 
     # Revenue by Commodity and Mineral Lease Type
     st.subheader("Total Revenue for Commodity and Mineral Lease type")
-    revenue_by_combo = filtered_df.groupby(["Commodity", "Mineral Lease Type"])["Revenue"].sum().sort_values(ascending=False).head(10)
+    revenue_by_combo = (
+        filtered_df.groupby(["Commodity", "Mineral Lease Type"])["Revenue"]
+        .sum()
+        .sort_values(ascending=False)
+        .head(10)
+    )
     fig8, ax8 = plt.subplots(figsize=(3, 2))
     revenue_by_combo.plot(kind="bar", ax=ax8)
     ax8.set_ylabel("")
