@@ -162,7 +162,7 @@ else:
     ax7.tick_params(axis='x', labelsize=6)
     st.pyplot(fig7)
 
-    # Offshore Region Revenue
+    ## Offshore Region Revenue
 st.subheader("Top 10 Offshore Regions by Revenue")
 
 offshore_revenue = (
@@ -174,16 +174,14 @@ offshore_revenue = (
 )
 
 fig8, ax8 = plt.subplots(figsize=(7, 4))
-if not offshore_revenue.empty:
-    offshore_revenue.plot(kind="bar", ax=ax8)
-    ax8.set_xlabel("Offshore Region", fontsize=6)
-    ax8.set_ylabel("Total Revenue", fontsize=6)
-    ax8.set_title("Top 10 Offshore Regions by Revenue", fontsize=8)
-else:
-    ax8.set_title("No Offshore Region Revenue Data Available", fontsize=8)
-    ax8.axis('off')  # Hide the axes if there's no data
-
+offshore_revenue.plot(kind="bar", ax=ax8)
+ax8.set_xlabel("Offshore Region", fontsize=6)
+ax8.set_ylabel("Total Revenue", fontsize=6)
+ax8.set_title("Top 10 Offshore Regions by Revenue", fontsize=8)
+ax8.tick_params(axis='y', labelsize=6)
+ax8.tick_params(axis='x', labelsize=6)
 st.pyplot(fig8)
+
 
 
    # Revenue by Revenue Type
