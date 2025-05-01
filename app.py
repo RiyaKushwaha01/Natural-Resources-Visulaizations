@@ -148,16 +148,16 @@ else:
     st.subheader("Revenue by Land Class")
     Revenue_LandClass = pd.DataFrame(filtered_df.groupby('Land Class').Revenue.sum()).reset_index()
     fig2, ax2 = plt.subplots(figsize=(6, 4))
-    ax2.pie(Revenue_LandClass['Revenue'], labels=Revenue_LandClass['Land Class'], autopct='%.2f%%', startangle=90)
+    Revenue_LandClass.plot(kind = 'pie' , subplots=True, autopct = '%.2f', ax=ax2)
     ax2.set_title("Revenue Distribution by Land Class", fontsize=11)
     ax2.axis('equal')
     st.pyplot(fig2)
 
     # Revenue by Land Category
     st.subheader("Revenue by Land Category")
-    revenue_landcategory = filtered_df.groupby("Land Category")["Revenue"].sum().sort_values(ascending=False)
+    revenue_landcategory = filtered_df.groupby('Land Category').Revenue.sum().sort_values(ascending = False)
     fig3, ax3 = plt.subplots(figsize=(3, 2))
-    revenue_landcategory.plot(kind="bar", ax=ax3)
+    Revenue_LandCategory.plot(kind = 'bar', figsize = (4,3), ax = ax3)
     ax3.set_ylabel("")
     ax3.set_title("Revenue Distribution by Land Category", fontsize=8)
      # Change tick label size
