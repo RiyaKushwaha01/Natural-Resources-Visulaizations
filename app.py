@@ -163,29 +163,29 @@ else:
     st.pyplot(fig7)
 
 # Offshore Region Revenue
-st.subheader("Top 10 Offshore Regions by Revenue")
+#st.subheader("Top 10 Offshore Regions by Revenue")
 
-filtered_df = filtered_df.dropna(subset=["Offshore Region"])
+#filtered_df = filtered_df.dropna(subset=["Offshore Region"])
 
-offshore_revenue = (
-    filtered_df.groupby("Offshore Region")["Revenue"]
-    .sum()
-    .sort_values(ascending=False)
-    .head(10)
-)
+#offshore_revenue = (
+    #filtered_df.groupby("Offshore Region")["Revenue"]
+    #.sum()
+   # .sort_values(ascending=False)
+   # .head(10)
+#)
 
-# Prevent plotting error by adding a placeholder row if empty
-if offshore_revenue.empty:
-    offshore_revenue = pd.Series([0], index=["No Data"], name="Revenue")
+## Prevent plotting error by adding a placeholder row if empty
+#if offshore_revenue.empty:
+#    offshore_revenue = pd.Series([0], index=["No Data"], name="Revenue")
 
-fig8, ax8 = plt.subplots(figsize=(7, 4))
-offshore_revenue.plot(kind="bar", ax=ax8)
-ax8.set_xlabel("Offshore Region", fontsize=6)
-ax8.set_ylabel("Total Revenue", fontsize=6)
-ax8.set_title("Top 10 Offshore Regions by Revenue", fontsize=8)
-ax8.tick_params(axis='y', labelsize=6)
-ax8.tick_params(axis='x', labelsize=6)
-st.pyplot(fig8)
+#fig8, ax8 = plt.subplots(figsize=(7, 4))
+#offshore_revenue.plot(kind="bar", ax=ax8)
+#ax8.set_xlabel("Offshore Region", fontsize=6)
+#ax8.set_ylabel("Total Revenue", fontsize=6)
+#ax8.set_title("Top 10 Offshore Regions by Revenue", fontsize=8)
+#ax8.tick_params(axis='y', labelsize=6)
+#ax8.tick_params(axis='x', labelsize=6)
+#st.pyplot(fig8)
 
 
 
