@@ -99,7 +99,7 @@ else:
     st.pyplot(fig1)
 
     # State by Revenue
-    st.subheader("State by Revenue")
+    st.subheader("Top 10 States by Revenue")
     state_revenue = filtered_df.groupby("State")["Revenue"].sum().sort_values(ascending=False).head(10)
     fig2, ax2 = plt.subplots(figsize=(7,4))
     state_revenue.plot(kind="bar", width=0.7, ax=ax2)
@@ -113,7 +113,7 @@ else:
     if "County" in filtered_df.columns and not filtered_df["County"].dropna().empty:
         county_revenue = filtered_df.dropna(subset=["County"]).groupby("County")["Revenue"].sum().sort_values(ascending=False).head(10)
         if not county_revenue.empty:
-            fig3, ax3 = plt.subplots(figsize=(3, 2))
+            fig3, ax3 = plt.subplots(figsize=(7,4))
             county_revenue.plot(kind="bar", ax=ax3)
             ax3.set_title("County by Revenue", fontsize=8)
             st.pyplot(fig3)
