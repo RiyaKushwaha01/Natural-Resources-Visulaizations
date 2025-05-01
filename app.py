@@ -162,7 +162,7 @@ else:
     ax7.tick_params(axis='x', labelsize=6)
     st.pyplot(fig7)
 
-    ## Offshore Region Revenue
+    # Offshore Region Revenue
 st.subheader("Top 10 Offshore Regions by Revenue")
 
 offshore_revenue = (
@@ -172,6 +172,10 @@ offshore_revenue = (
     .sort_values(ascending=False)
     .head(10)
 )
+
+# Prevent plotting error by adding a placeholder row if empty
+if offshore_revenue.empty:
+    offshore_revenue = pd.Series([0], index=["No Data"], name="Revenue")
 
 fig8, ax8 = plt.subplots(figsize=(7, 4))
 offshore_revenue.plot(kind="bar", ax=ax8)
