@@ -117,7 +117,7 @@ else:
             county_revenue.plot(kind="bar", ax=ax3)
             ax3.set_title("County by Revenue", fontsize=8)
             ax3.set_xlabel("Revenue")
-            ax5.tick_params(axis='x', labelsize=6)
+            ax3.tick_params(axis='x', labelsize=6)
             st.pyplot(fig3)
         else:
             st.warning("No county data available after filtering.")
