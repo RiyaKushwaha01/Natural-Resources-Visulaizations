@@ -155,7 +155,7 @@ else:
     # Revenue by Land Category
     st.subheader("Revenue by Land Category")
     revenue_land_category = filtered_df.groupby("Land Category")["Revenue"].sum().sort_values(ascending=False)
-    fig7, ax7 = plt.subplots(figsize=(3, 2))
+    fig7, ax7 = plt.subplots(figsize=(7,4))
     revenue_land_category.plot(kind="bar", ax=ax7)
     ax7.set_title("Revenue by Land Category", fontsize=8)
     ax7.tick_params(axis='y', labelsize=6)
@@ -167,7 +167,7 @@ else:
     if "Offshore Region" in filtered_df.columns and not filtered_df["Offshore Region"].dropna().empty:
         offshore_revenue = filtered_df.dropna(subset=["Offshore Region"]).groupby("Offshore Region")["Revenue"].sum().sort_values(ascending=False).head(10)
         if not offshore_revenue.empty:
-            fig8, ax8 = plt.subplots(figsize=(4, 3))
+            fig8, ax8 = plt.subplots(figsize=(7,4))
             offshore_revenue.plot(kind="bar", ax=ax8)
             ax8.set_title("Revenue by Offshore Region", fontsize=8)
             st.pyplot(fig8)
