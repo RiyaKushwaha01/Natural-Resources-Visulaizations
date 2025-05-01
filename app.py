@@ -113,7 +113,7 @@ else:
     if "County" in filtered_df.columns and not filtered_df["County"].dropna().empty:
         county_revenue = filtered_df.dropna(subset=["County"]).groupby("County")["Revenue"].sum().sort_values(ascending=False).head(10)
         if not county_revenue.empty:
-            fig3, ax3 = plt.subplots(figsize=(7,4))
+            fig3, ax3 = plt.subplots(figsize=(8,4))
             county_revenue.plot(kind="bar", ax=ax3)
             ax3.set_title("County by Revenue", fontsize=8)
             st.pyplot(fig3)
@@ -124,7 +124,7 @@ else:
 
     # Correlation Analysis
     st.subheader("Correlation Analysis")
-    fig4, ax4 = plt.subplots()
+    fig4, ax4 = plt.subplots(figsize=(4, 3))
     sns.heatmap(filtered_df.select_dtypes(include=['float64', 'int64']).corr(), annot=True, ax=ax4)
     ax4.set_title("Correlation Analysis", fontsize=8)
     st.pyplot(fig4)
@@ -132,7 +132,7 @@ else:
     # Revenue by Commodity and Lease Type
     st.subheader("Total Revenue for Commodity and Mineral Lease Type")
     revenue_by_combo = filtered_df.groupby(["Commodity", "Mineral Lease Type"])["Revenue"].sum().sort_values(ascending=False).head(10)
-    fig5, ax5 = plt.subplots(figsize=(3, 2))
+    fig5, ax5 = plt.subplots(figsize=(8, 4))
     revenue_by_combo.plot(kind="bar", ax=ax5)
     ax5.set_title("Total Revenue for Commodity and Lease Type", fontsize=8)
     ax5.tick_params(axis='y', labelsize=6)
