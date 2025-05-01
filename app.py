@@ -84,7 +84,7 @@ else:
     ]
 
     st.subheader("Dataset Preview")
-    st.dataframe(filtered_df.head())
+    st.dataframe(filtered_df)
 
     # Revenue Trends
     st.subheader("Revenue Trends Over the Years")
