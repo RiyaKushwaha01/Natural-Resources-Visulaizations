@@ -101,7 +101,7 @@ else:
     # State by Revenue
     st.subheader("State by Revenue")
     state_revenue = filtered_df.groupby("State")["Revenue"].sum().sort_values(ascending=False).head(10)
-    fig2, ax2 = plt.subplots(figsize=(6,4))
+    fig2, ax2 = plt.subplots(figsize=(5,4))
     state_revenue.plot(kind="bar", width=0.7, ax=ax2)
     ax2.set_title("State by Revenue", fontsize=8)
     ax2.tick_params(axis='y', labelsize=6)
