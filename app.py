@@ -1,4 +1,4 @@
-import streamlit as st
+ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -136,9 +136,9 @@ else:
     revenue_trends = filtered_df.groupby("Calendar Year")["Revenue"].sum().reset_index()
     fig1, ax1 = plt.subplots(figsize=(6, 3))
     sns.lineplot(data=revenue_trends, x="Calendar Year", y="Revenue", ax=ax1)
-    ax1.set_title("Revenue Trends Over the Years", fontsize=11)
-    ax1.set_xlabel("Year", fontsize=8)
-    ax1.set_ylabel("Revenue", fontsize=8)
+    ax1.set_title("Revenue Trends Over the Years", fontsize=8)
+    ax1.set_xlabel("Year", fontsize=5)
+    ax1.set_ylabel("Revenue", fontsize=5)
      # Change tick label size
     ax1.tick_params(axis='y', labelsize=6)
     ax1.tick_params(axis='x', labelsize=6)
@@ -149,8 +149,7 @@ else:
     Revenue_LandClass = pd.DataFrame(filtered_df.groupby('Land Class').Revenue.sum()).reset_index()
     fig2, ax2 = plt.subplots(figsize=(6, 4))
     Revenue_LandClass.plot(kind = 'pie' , subplots=True, autopct = '%.2f', ax=ax2)
-    ax2.set_title("Revenue Distribution by Land Class", fontsize=11)
-    ax2.axis('equal')
+    ax2.set_title("Revenue Distribution by Land Class", fontsize=8)
     st.pyplot(fig2)
 
     # Revenue by Land Category
