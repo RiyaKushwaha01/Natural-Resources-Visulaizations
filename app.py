@@ -162,12 +162,13 @@ else:
     ax7.tick_params(axis='x', labelsize=6)
     st.pyplot(fig7)
 
-    # Offshore Region Revenue
+# Offshore Region Revenue
 st.subheader("Top 10 Offshore Regions by Revenue")
 
+filtered_df = filtered_df.dropna(subset=["Offshore Region"])
+
 offshore_revenue = (
-    filtered_df.dropna(subset=["Offshore Region"])
-    .groupby("Offshore Region")["Revenue"]
+    filtered_df.groupby("Offshore Region")["Revenue"]
     .sum()
     .sort_values(ascending=False)
     .head(10)
@@ -185,6 +186,7 @@ ax8.set_title("Top 10 Offshore Regions by Revenue", fontsize=8)
 ax8.tick_params(axis='y', labelsize=6)
 ax8.tick_params(axis='x', labelsize=6)
 st.pyplot(fig8)
+
 
 
 
