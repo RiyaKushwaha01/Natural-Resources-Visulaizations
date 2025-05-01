@@ -137,51 +137,24 @@ else:
     fig1, ax1 = plt.subplots(figsize=(6, 3))
     sns.lineplot(data=revenue_trends, x="Calendar Year", y="Revenue", ax=ax1)
     ax1.set_title("Revenue Trends Over the Years", fontsize=8)
-    ax1.set_xlabel("Year", fontsize=5)
-    ax1.set_ylabel("Revenue", fontsize=5)
+    ax1.set_xlabel("Year", fontsize=6)
+    ax1.set_ylabel("Revenue", fontsize=6)
      # Change tick label size
     ax1.tick_params(axis='y', labelsize=6)
     ax1.tick_params(axis='x', labelsize=6)
     st.pyplot(fig1)
 
-    # Revenue by Land Class
-    st.subheader("Revenue by Land Class")
-    Revenue_LandClass = pd.DataFrame(filtered_df.groupby('Land Class').Revenue.sum()).reset_index()
-    fig2, ax2 = plt.subplots(figsize=(6, 4))
-    Revenue_LandClass.plot(kind = 'pie' , subplots=True, autopct = '%.2f', ax=ax2)
-    ax2.set_title("Revenue Distribution by Land Class", fontsize=8)
-    st.pyplot(fig2)
-
-    # Revenue by Land Category
-    st.subheader("Revenue by Land Category")
-    revenue_landcategory = filtered_df.groupby('Land Category').Revenue.sum().sort_values(ascending = False)
-    fig3, ax3 = plt.subplots(figsize=(3, 2))
-    Revenue_LandCategory.plot(kind = 'bar', figsize = (4,3), ax = ax3)
-    ax3.set_ylabel("")
-    ax3.set_title("Revenue Distribution by Land Category", fontsize=8)
-     # Change tick label size
-    ax3.tick_params(axis='y', labelsize=6)
-    ax3.tick_params(axis='x', labelsize=6)
-    st.pyplot(fig3)
-
-    # State by Revenue
+     # State by Revenue
     st.subheader("State by Revenue")
     state_revenue = filtered_df.groupby("State")["Revenue"].sum().sort_values(ascending=False).head(10)
-    fig4, ax4 = plt.subplots(figsize=(3, 2))
-    state_revenue.plot(kind="bar", width=0.7, ax=ax4)
-    ax4.set_ylabel("")
-    ax4.set_title("State by Revenue", fontsize=8)
+    fig2, ax2 = plt.subplots(figsize=(3, 2))
+    state_revenue.plot(kind="bar", width=0.7, ax=ax2)
+    ax2.set_ylabel("")
+    ax2.set_title("State by Revenue", fontsize=8)
      # Change tick label size
-    ax4.tick_params(axis='y', labelsize=6)
-    ax4.tick_params(axis='x', labelsize=6)
-    st.pyplot(fig4)
-
-    # Correlation Analysis
-    st.subheader("Correlation Analysis")
-    fig5, ax5 = plt.subplots()
-    sns.heatmap(filtered_df.select_dtypes(include=['float64', 'int64']).corr(), annot=True, ax=ax5)
-    ax5.set_title("Correlation Analysis", fontsize=11)
-    st.pyplot(fig5)
+    ax2.tick_params(axis='y', labelsize=6)
+    ax2.tick_params(axis='x', labelsize=6)
+    st.pyplot(fig2)
 
     # County by Revenue
     st.subheader("County by Revenue")
@@ -194,15 +167,61 @@ else:
             .head(10)
         )
         if not county_revenue.empty:
-            fig6, ax6 = plt.subplots(figsize=(3, 2))
-            county_revenue.plot(kind="bar", ax=ax6)
-            ax6.set_ylabel("")
-            ax6.set_title("County by Revenue", fontsize=11)
-            st.pyplot(fig6)
+            fig3, ax3 = plt.subplots(figsize=(3, 2))
+            county_revenue.plot(kind="bar", ax=ax3)
+            ax3.set_ylabel("")
+            ax3.set_title("County by Revenue", fontsize=11)
+            st.pyplot(fig3)
         else:
             st.warning("No county data available after filtering.")
     else:
         st.warning("County column missing or contains only NaN.")
+
+    # Correlation Analysis
+    st.subheader("Correlation Analysis")
+    fig4, ax4 = plt.subplots()
+    sns.heatmap(filtered_df.select_dtypes(include=['float64', 'int64']).corr(), annot=True, ax=ax4)
+    ax4.set_title("Correlation Analysis", fontsize=8)
+    st.pyplot(fig4)
+
+     # Revenue by Commodity and Mineral Lease Type
+    st.subheader("Total Revenue for Commodity and Mineral Lease type")
+    revenue_by_combo = (
+        filtered_df.groupby(["Commodity", "Mineral Lease Type"])["Revenue"]
+        .sum()
+        .sort_values(ascending=False)
+        .head(10)
+    )
+    fig5, ax5= plt.subplots(figsize=(3, 2))
+    revenue_by_combo.plot(kind="bar", ax=ax8)
+    ax5.set_xlabel("Revenue", fontsize=6)
+    ax5.set_ylabel("", fontsize=6)
+    ax5.set_title("Total Revenue for Commodity and Mineral Lease type", fontsize=8)
+     # Change tick label size
+    ax5.tick_params(axis='y', labelsize=6)
+    ax5.tick_params(axis='x', labelsize=6)
+    st.pyplot(fig5)
+        
+    # Revenue by Land Class
+    st.subheader("Revenue by Land Class")
+    Revenue_LandClass = pd.DataFrame(filtered_df.groupby('Land Class').Revenue.sum()).reset_index()
+    fig6, ax6 = plt.subplots(figsize=(6, 4))
+    Revenue_LandClass.plot(kind = 'pie' , subplots=True, autopct = '%.2f', ax=ax6)
+    ax6.set_title("Revenue Distribution by Land Class", fontsize=8)
+    st.pyplot(fig6)
+
+    # Revenue by Land Category
+    st.subheader("Revenue by Land Category")
+    revenue_landcategory = filtered_df.groupby('Land Category').Revenue.sum().sort_values(ascending = False)
+    fig7, ax7 = plt.subplots(figsize=(3, 2))
+    Revenue_LandCategory.plot(kind = 'bar', figsize = (4,3), ax = ax7)
+    ax7.set_ylabel("")
+    ax7.set_title("Revenue Distribution by Land Category", fontsize=8)
+     # Change tick label size
+    ax7.tick_params(axis='y', labelsize=6)
+    ax7.tick_params(axis='x', labelsize=6)
+    st.pyplot(fig7)
+
 
     # Offshore Region Revenue
     st.subheader("Revenue distribution of Offshore region")
