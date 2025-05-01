@@ -137,6 +137,7 @@ else:
     fig5, ax5 = plt.subplots(figsize=(8, 4))
     revenue_by_combo.plot(kind="bar", ax=ax5)
     ax5.set_title("Total Revenue for Commodity and Lease Type", fontsize=8)
+    ax5.set_xlabel("Revenue")
     ax5.tick_params(axis='y', labelsize=6)
     ax5.tick_params(axis='x', labelsize=6)
     st.pyplot(fig5)
