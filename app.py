@@ -84,7 +84,7 @@ else:
     ]
 
     st.subheader("Dataset Preview")
-    st.dataframe(df)
+    st.dataframe(filtered_df)
 
     # Revenue Trends
     st.subheader("Revenue Trends Over the Years")
@@ -162,6 +162,19 @@ else:
     ax7.tick_params(axis='x', labelsize=6)
     st.pyplot(fig7)
 
+     # Revenue by Revenue Type
+    st.subheader("Top Revenue Types by Total Revenue")
+    revenue_rev_type = (filtered_df.groupby("Revenue Type")["Revenue"].sum().sort_values(ascending=False))
+    fig8, ax8 = plt.subplots(figsize=(3, 2))
+    revenue_rev_type.plot(kind="barh", ax=ax8)
+    ax8.set_xlabel("Total Revenue", fontsize=6)
+    ax8.set_ylabel("Revenue Type", fontsize=6)
+    ax8.set_title("Top Revenue Types by Total Revenue", fontsize=8)
+    ax8.tick_params(axis='y', labelsize=6)
+    ax8.tick_params(axis='x', labelsize=6)
+    st.pyplot(fig8)
+
+
 # Offshore Region Revenue
 #st.subheader("Top 10 Offshore Regions by Revenue")
 
@@ -190,18 +203,4 @@ else:
 
 
 
-   # Revenue by Revenue Type
-st.subheader("Top Revenue Types by Total Revenue")
-revenue_rev_type = (
-    filtered_df.groupby("Revenue Type")["Revenue"]
-    .sum()
-    .sort_values(ascending=False)
-)
-fig8, ax8 = plt.subplots(figsize=(3, 2))
-revenue_rev_type.plot(kind="barh", ax=ax8)
-ax8.set_xlabel("Total Revenue", fontsize=6)
-ax8.set_ylabel("Revenue Type", fontsize=6)
-ax8.set_title("Top Revenue Types by Total Revenue", fontsize=8)
-ax8.tick_params(axis='y', labelsize=6)
-ax8.tick_params(axis='x', labelsize=6)
-st.pyplot(fig8)
+   
