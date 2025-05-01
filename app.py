@@ -163,18 +163,28 @@ else:
     st.pyplot(fig7)
 
     # Offshore Region Revenue
-    st.subheader("Revenue Distribution of Offshore Region")
-    if "Offshore Region" in filtered_df.columns and not filtered_df["Offshore Region"].dropna().empty:
-        offshore_revenue = filtered_df.dropna(subset=["Offshore Region"]).groupby("Offshore Region")["Revenue"].sum().sort_values(ascending=False).head(10)
-        if not offshore_revenue.empty:
-            fig8, ax8 = plt.subplots(figsize=(7,4))
-            offshore_revenue.plot(kind="bar", ax=ax8)
-            ax8.set_title("Revenue by Offshore Region", fontsize=8)
-            st.pyplot(fig8)
-        else:
-            st.warning("No offshore region data available after filtering.")
-    else:
-        st.warning("Offshore Region column missing or empty.")
+st.subheader("Top 10 Offshore Regions by Revenue")
+
+offshore_revenue = (
+    filtered_df.dropna(subset=["Offshore Region"])
+    .groupby("Offshore Region")["Revenue"]
+    .sum()
+    .sort_values(ascending=False)
+    .head(10)
+)
+
+fig8, ax8 = plt.subplots(figsize=(7, 4))
+if not offshore_revenue.empty:
+    offshore_revenue.plot(kind="bar", ax=ax8)
+    ax8.set_xlabel("Offshore Region", fontsize=6)
+    ax8.set_ylabel("Total Revenue", fontsize=6)
+    ax8.set_title("Top 10 Offshore Regions by Revenue", fontsize=8)
+else:
+    ax8.set_title("No Offshore Region Revenue Data Available", fontsize=8)
+    ax8.axis('off')  # Hide the axes if there's no data
+
+st.pyplot(fig8)
+
 
    # Revenue by Revenue Type
 st.subheader("Top Revenue Types by Total Revenue")
