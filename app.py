@@ -163,8 +163,6 @@ else:
     ax6.set_title("Revenue Distribution by Land Class", fontsize=8)
     st.pyplot(fig6)
 
-
-
     # Revenue by Land Category
     st.subheader("Revenue by Land Category")
     revenue_land_category = filtered_df.groupby("Land Category")["Revenue"].sum() 
