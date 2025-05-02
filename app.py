@@ -43,23 +43,6 @@ else:
     counties = sorted(df["County"].dropna().unique())
     products = sorted(df["Product"].dropna().unique())
 
-    # ✅ Apply filters immediately after the sidebar inputs
-filtered_df = df[
-    df["Calendar Year"].isin(selected_years) &
-    df["Land Class"].isin(selected_land_classes) &
-    df["Land Category"].isin(selected_land_categories) &
-    df["State"].isin(selected_states) &
-    df["Revenue Type"].isin(selected_revenue_types) &
-    df["Mineral Lease Type"].isin(selected_lease_types) &
-    df["Commodity"].isin(selected_commodities) &
-    df["County"].isin(selected_counties) &
-    df["Product"].isin(selected_products)
-]
-
-# ✅ Use filtered_df everywhere from here on
-st.subheader("Dataset Preview")
-st.dataframe(filtered_df)
-
 
     with st.sidebar.expander("📅 Calendar Year", expanded=True):
         selected_years = st.multiselect("Select Calendar Year", options=years, default=years)
@@ -87,6 +70,23 @@ st.dataframe(filtered_df)
 
     with st.sidebar.expander("📦 Product", expanded=True):
         selected_products = st.multiselect("Select Product", options=products, default=products)
+
+     # ✅ Apply filters immediately after the sidebar inputs
+filtered_df = df[
+    df["Calendar Year"].isin(selected_years) &
+    df["Land Class"].isin(selected_land_classes) &
+    df["Land Category"].isin(selected_land_categories) &
+    df["State"].isin(selected_states) &
+    df["Revenue Type"].isin(selected_revenue_types) &
+    df["Mineral Lease Type"].isin(selected_lease_types) &
+    df["Commodity"].isin(selected_commodities) &
+    df["County"].isin(selected_counties) &
+    df["Product"].isin(selected_products)
+]
+
+# ✅ Use filtered_df everywhere from here on
+st.subheader("Dataset Preview")
+st.dataframe(filtered_df)
 
     
 
