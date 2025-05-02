@@ -44,31 +44,31 @@ else:
     products = sorted(df["Product"].dropna().unique())
 
     with st.sidebar.expander("📅 Calendar Year", expanded=True):
-        selected_years = st.multiselect("Select Calendar Year(s)", options=years, default=years)
+        selected_years = st.multiselect("Select Calendar Year", options=years, default=years)
 
     with st.sidebar.expander("🌍 Land Class", expanded=True):
-        selected_land_classes = st.multiselect("Select Land Class(es)", options=land_classes, default=land_classes)
+        selected_land_classes = st.multiselect("Select Land Class", options=land_classes, default=land_classes)
 
     with st.sidebar.expander("🏷️ Land Category", expanded=True):
-        selected_land_categories = st.multiselect("Select Land Category(ies)", options=land_categories, default=land_categories)
+        selected_land_categories = st.multiselect("Select Land Category", options=land_categories, default=land_categories)
 
     with st.sidebar.expander("🗺️ State", expanded=True):
-        selected_states = st.multiselect("Select State(s)", options=states, default=states)
+        selected_states = st.multiselect("Select State", options=states, default=states)
 
     with st.sidebar.expander("🏘️ County", expanded=True):
-        selected_counties = st.multiselect("Select County(ies)", options=counties, default=counties)
+        selected_counties = st.multiselect("Select County", options=counties, default=counties)
 
     with st.sidebar.expander("💰 Revenue Type", expanded=True):
-        selected_revenue_types = st.multiselect("Select Revenue Type(s)", options=revenue_types, default=revenue_types)
+        selected_revenue_types = st.multiselect("Select Revenue Type", options=revenue_types, default=revenue_types)
 
     with st.sidebar.expander("📄 Mineral Lease Type", expanded=True):
-        selected_lease_types = st.multiselect("Select Mineral Lease Type(s)", options=lease_types, default=lease_types)
+        selected_lease_types = st.multiselect("Select Mineral Lease Type", options=lease_types, default=lease_types)
 
     with st.sidebar.expander("⛏️ Commodity", expanded=True):
-        selected_commodities = st.multiselect("Select Commodity(ies)", options=commodities, default=commodities)
+        selected_commodities = st.multiselect("Select Commodity", options=commodities, default=commodities)
 
     with st.sidebar.expander("📦 Product", expanded=True):
-        selected_products = st.multiselect("Select Product(s)", options=products, default=products)
+        selected_products = st.multiselect("Select Product", options=products, default=products)
 
     # Apply filters
     filtered_df = df[
@@ -155,7 +155,7 @@ else:
 
     # Revenue by Land Category
     st.subheader("Revenue by Land Category")
-    revenue_land_category = filtered_df.groupby("Land Category")["Revenue"].sum().sort_values(ascending=False)
+    revenue_land_category = filtered_df.groupby("Land Category")["Revenue"].sum() 
     fig7, ax7 = plt.subplots(figsize=(7,4))
     revenue_land_category.plot(kind="bar", ax=ax7)
     ax7.set_title("Revenue by Land Category", fontsize=8)
