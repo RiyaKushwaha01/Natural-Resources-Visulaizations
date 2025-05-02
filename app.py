@@ -94,7 +94,7 @@ else:
 
     # County by Revenue
     st.subheader("County by Revenue")
-    if "County" in  df.columns and not filtered_df["County"].dropna().empty:
+    if "County" in  df.columns and not  df["County"].dropna().empty:
         county_revenue =  df.dropna(subset=["County"]).groupby("County")["Revenue"].sum().sort_values(ascending=False).head(10)
         if not county_revenue.empty:
             fig3, ax3 = plt.subplots(figsize=(8,4))
