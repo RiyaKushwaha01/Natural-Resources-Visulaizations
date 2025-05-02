@@ -83,6 +83,15 @@ else:
     st.subheader("Dataset Preview")
     st.dataframe(filtered_df)
 
+    # Function to format numbers in millions or billions
+    def format_revenue(value):
+        if value >= 1e9:
+            return f"${value/1e9:.2f}B"
+        elif value >= 1e6:
+            return f"${value/1e6:.2f}M"
+        else:
+            return f"${value:.2f}"
+
     # Revenue Trends
     st.subheader("Revenue Trends Over the Years")
     revenue_trends = filtered_df.groupby("Calendar Year")["Revenue"].sum().reset_index()
@@ -93,6 +102,12 @@ else:
     ax1.set_ylabel("Revenue", fontsize=6)
     ax1.tick_params(axis='y', labelsize=6)
     ax1.tick_params(axis='x', labelsize=6)
+
+    # Add data labels
+    for i in range(len(revenue_trends)):
+        ax1.text(revenue_trends["Calendar Year"].iloc[i], revenue_trends["Revenue"].iloc[i],
+                 format_revenue(revenue_trends["Revenue"].iloc[i]), fontsize=6, ha='center')
+
     st.pyplot(fig1)
 
     # State by Revenue
@@ -103,9 +118,12 @@ else:
     ax2.set_title("State by Revenue", fontsize=8)
     ax2.tick_params(axis='y', labelsize=6)
     ax2.tick_params(axis='x', labelsize=6)
+
+    # Add data labels
     for p in ax2.patches:
-        ax2.annotate(f'{p.get_height():,.0f}', (p.get_x() + p.get_width() / 2., p.get_height()), 
-                     ha='center', va='center', fontsize=6, color='black', xytext=(0, 5), textcoords='offset points')
+        ax2.annotate(format_revenue(p.get_height()), (p.get_x() + p.get_width() / 2., p.get_height()),
+                     ha='center', va='center', fontsize=6, xytext=(0, 5), textcoords='offset points')
+
     st.pyplot(fig2)
 
     # County by Revenue
@@ -117,9 +135,12 @@ else:
         ax3.set_title("County by Revenue", fontsize=8)
         ax3.set_xlabel("Revenue")
         ax3.tick_params(axis='x', labelsize=6)
+
+        # Add data labels
         for p in ax3.patches:
-            ax3.annotate(f'{p.get_height():,.0f}', (p.get_x() + p.get_width() / 2., p.get_height()), 
-                         ha='center', va='center', fontsize=6, color='black', xytext=(0, 5), textcoords='offset points')
+            ax3.annotate(format_revenue(p.get_height()), (p.get_x() + p.get_width() / 2., p.get_height()),
+                         ha='center', va='center', fontsize=6, xytext=(0, 5), textcoords='offset points')
+
         st.pyplot(fig3)
     else:
         st.warning("County column missing or contains only NaN.")
@@ -141,9 +162,12 @@ else:
     ax5.set_xlabel("Commodity and Lease Type")
     ax5.tick_params(axis='y', labelsize=6)
     ax5.tick_params(axis='x', labelsize=6)
+
+    # Add data labels
     for p in ax5.patches:
-        ax5.annotate(f'{p.get_height():,.0f}', (p.get_x() + p.get_width() / 2., p.get_height()), 
-                     ha='center', va='center', fontsize=6, color='black', xytext=(0, 5), textcoords='offset points')
+        ax5.annotate(format_revenue(p.get_height()), (p.get_x() + p.get_width() / 2., p.get_height()),
+                     ha='center', va='center', fontsize=6, xytext=(0, 5), textcoords='offset points')
+
     st.pyplot(fig5)
 
     # Revenue by Land Class (use df instead of filtered_df)
@@ -163,9 +187,12 @@ else:
     ax7.set_title("Revenue by Land Category", fontsize=8)
     ax7.tick_params(axis='y', labelsize=6)
     ax7.tick_params(axis='x', labelsize=6)
+
+    # Add data labels
     for p in ax7.patches:
-        ax7.annotate(f'{p.get_height():,.0f}', (p.get_x() + p.get_width() / 2., p.get_height()), 
-                     ha='center', va='center', fontsize=6, color='black', xytext=(0, 5), textcoords='offset points')
+        ax7.annotate(format_revenue(p.get_height()), (p.get_x() + p.get_width() / 2., p.get_height()),
+                     ha='center', va='center', fontsize=6, xytext=(0, 5), textcoords='offset points')
+
     st.pyplot(fig7)
 
     # Revenue by Revenue Type (use df instead of filtered_df)
@@ -178,9 +205,12 @@ else:
     ax8.set_title("Top Revenue Types by Total Revenue", fontsize=8)
     ax8.tick_params(axis='y', labelsize=6)
     ax8.tick_params(axis='x', labelsize=6)
+
+    # Add data labels
     for p in ax8.patches:
-        ax8.annotate(f'{p.get_width():,.0f}', (p.get_x() + p.get_width(), p.get_y() + p.get_height() / 2.),
-                     ha='left', va='center', fontsize=6, color='black', xytext=(5, 0), textcoords='offset points')
+        ax8.annotate(format_revenue(p.get_width()), (p.get_x() + p.get_width(), p.get_y() + p.get_height() / 2.),
+                     ha='left', va='center', fontsize=6, xytext=(5, 0), textcoords='offset points')
+
     st.pyplot(fig8)
 
     # Offshore Region Revenue (use df instead of filtered_df)
@@ -194,7 +224,10 @@ else:
     ax9.set_title("Top 10 Offshore Regions by Revenue", fontsize=8)
     ax9.tick_params(axis='y', labelsize=6)
     ax9.tick_params(axis='x', labelsize=6)
+
+    # Add data labels
     for p in ax9.patches:
-        ax9.annotate(f'{p.get_height():,.0f}', (p.get_x() + p.get_width() / 2., p.get_height()), 
-                     ha='center', va='center', fontsize=6, color='black', xytext=(0, 5), textcoords='offset points')
+        ax9.annotate(format_revenue(p.get_height()), (p.get_x() + p.get_width() / 2., p.get_height()),
+                     ha='center', va='center', fontsize=6, xytext=(0, 5), textcoords='offset points')
+
     st.pyplot(fig9)
