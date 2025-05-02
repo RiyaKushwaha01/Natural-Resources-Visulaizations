@@ -73,10 +73,7 @@ else:
     # ✅ Apply filters
     filtered_df = df[
         df["Calendar Year"].isin(selected_years) &
-        df["Land Class"].isin(selected_land_classes) &
-        df["Land Category"].isin(selected_land_categories) &
         df["State"].isin(selected_states) &
-        df["Revenue Type"].isin(selected_revenue_types) &
         df["Mineral Lease Type"].isin(selected_lease_types) &
         df["Commodity"].isin(selected_commodities) &
         df["County"].isin(selected_counties) &
