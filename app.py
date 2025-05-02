@@ -103,12 +103,16 @@ else:
     ax1.tick_params(axis='y', labelsize=6)
     ax1.tick_params(axis='x', labelsize=6)
 
-    # Add data labels
+    # Add data labels with adjusted positioning
     for i in range(len(revenue_trends)):
-        ax1.text(revenue_trends["Calendar Year"].iloc[i], revenue_trends["Revenue"].iloc[i],
-                 format_revenue(revenue_trends["Revenue"].iloc[i]), fontsize=6, ha='center')
+        x_pos = revenue_trends["Calendar Year"].iloc[i]
+        y_pos = revenue_trends["Revenue"].iloc[i]
+        # Adjust the vertical offset based on the position of the point
+        ax1.text(x_pos, y_pos, format_revenue(y_pos), fontsize=6, ha='center',
+                 va='bottom' if i % 2 == 0 else 'top', color='black', weight='bold')
 
     st.pyplot(fig1)
+
 
     # State by Revenue
     st.subheader("Top 10 States by Revenue")
