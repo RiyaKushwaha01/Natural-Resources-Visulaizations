@@ -143,13 +143,14 @@ else:
     ax5.tick_params(axis='x', labelsize=6)
     st.pyplot(fig5)
 
-   # Revenue by Land Class
+    # # Revenue by Land Class
     st.subheader("Revenue by Land Class")
-    revenue_land_class = filtered_df.groupby("Land Class")["Revenue"].sum()
-    fig6, ax6 = plt.subplots()
-    revenue_land_class.plot.pie(autopct='%.2f%%', ax=ax6, radius=0.7)
-    ax6.set_ylabel("")
-    ax6.set_title("Revenue by Land Class", fontsize=8)
+    revenue_land_class = pd.DataFrame(filtered_df.groupby("Land Class")["Revenue"].sum())
+
+    fig6, ax6 = plt.subplots(figsize=(4, 4))  # Adjust figsize as needed
+    revenue_land_class.plot(kind="pie", y="Revenue", autopct="%.2f%%", subplots=True, ax=ax6)
+    ax6.set_ylabel("")  # Remove y-label
+    ax6.set_title("Revenue Distribution by Land Class", fontsize=8)
     st.pyplot(fig6)
 
 
