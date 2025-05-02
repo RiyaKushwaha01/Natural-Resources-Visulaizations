@@ -130,19 +130,8 @@ else:
     # Revenue by Land Class
     st.subheader("Revenue by Land Class")
     revenue_land_class =  df.groupby("Land Class")["Revenue"].sum()
-
-    # Optional: force display of all classes, even if one is missing
-    all_classes = df["Land Class"].dropna().unique()
-    revenue_land_class = revenue_land_class.reindex(all_classes, fill_value=0)
-
-    fig6, ax6 = plt.subplots(figsize=(4, 4))
-    ax6.pie(
-        revenue_land_class,
-        labels=revenue_land_class.index,
-        autopct="%.2f%%",
-        startangle=90,
-        wedgeprops={'edgecolor': 'white'},
-    )
+    fig6, ax6 = plt.subplots(figsize=(2,2))
+    ax6.pie( revenue_land_class, labels=revenue_land_class.index, autopct="%.2f%%", startangle=90, wedgeprops={'edgecolor': 'white'}, )
     ax6.axis("equal")  # Equal aspect ratio ensures pie is circular
     ax6.set_title("Revenue Distribution by Land Class", fontsize=8)
     st.pyplot(fig6)
@@ -171,29 +160,17 @@ else:
 
 
 # Offshore Region Revenue
-#st.subheader("Top 10 Offshore Regions by Revenue")
-
-#filtered_df = filtered_df.dropna(subset=["Offshore Region"])
-
-#offshore_revenue = (
-    #filtered_df.groupby("Offshore Region")["Revenue"]
-    #.sum()
-   # .sort_values(ascending=False)
-   # .head(10)
-#)
-
-## Prevent plotting error by adding a placeholder row if empty
-#if offshore_revenue.empty:
-#    offshore_revenue = pd.Series([0], index=["No Data"], name="Revenue")
-
-#fig8, ax8 = plt.subplots(figsize=(7, 4))
-#offshore_revenue.plot(kind="bar", ax=ax8)
-#ax8.set_xlabel("Offshore Region", fontsize=6)
-#ax8.set_ylabel("Total Revenue", fontsize=6)
-#ax8.set_title("Top 10 Offshore Regions by Revenue", fontsize=8)
-#ax8.tick_params(axis='y', labelsize=6)
-#ax8.tick_params(axis='x', labelsize=6)
-#st.pyplot(fig8)
+st.subheader("Top 10 Offshore Regions by Revenue")
+filtered_df = filtered_df.dropna(subset=["Offshore Region"])
+offshore_revenue = (filtered_df.groupby("Offshore Region")["Revenue"].sum().sort_values(ascending=False).head(10))
+fig9, ax9 = plt.subplots(figsize=(7, 4))
+offshore_revenue.plot(kind="bar", ax=ax9)
+ax9.set_xlabel("Offshore Region", fontsize=6)
+ax9.set_ylabel("Total Revenue", fontsize=6)
+ax9.set_title("Top 10 Offshore Regions by Revenue", fontsize=8)
+ax9.tick_params(axis='y', labelsize=6)
+ax9.tick_params(axis='x', labelsize=6)
+st.pyplot(fig9)
 
 
 
