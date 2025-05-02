@@ -142,7 +142,7 @@ else:
 
     # Revenue by Land Class
     st.subheader("Revenue by Land Class")
-    revenue_land_class = filtered_df.groupby("Land Class")["Revenue"].sum()
+    revenue_land_class =  df.groupby("Land Class")["Revenue"].sum()
     fig6, ax6 = plt.subplots(figsize=(2, 2))
     ax6.pie(revenue_land_class, labels=revenue_land_class.index, autopct="%.2f%%", startangle=90, wedgeprops={'edgecolor': 'white'})
     ax6.axis("equal")
@@ -151,7 +151,7 @@ else:
 
     # Revenue by Land Category
     st.subheader("Revenue by Land Category")
-    revenue_land_category = filtered_df.groupby("Land Category")["Revenue"].sum()
+    revenue_land_category =  df.groupby("Land Category")["Revenue"].sum()
     fig7, ax7 = plt.subplots(figsize=(7, 4))
     revenue_land_category.plot(kind="bar", ax=ax7)
     ax7.set_title("Revenue by Land Category", fontsize=8)
@@ -161,7 +161,7 @@ else:
 
     # Revenue by Revenue Type
     st.subheader("Top Revenue Types by Total Revenue")
-    revenue_rev_type = filtered_df.groupby("Revenue Type")["Revenue"].sum().sort_values(ascending=False)
+    revenue_rev_type = df.groupby("Revenue Type")["Revenue"].sum().sort_values(ascending=False)
     fig8, ax8 = plt.subplots(figsize=(3, 2))
     revenue_rev_type.plot(kind="barh", ax=ax8)
     ax8.set_xlabel("Total Revenue", fontsize=6)
@@ -173,7 +173,7 @@ else:
 
     # Offshore Region Revenue
     st.subheader("Top 10 Offshore Regions by Revenue")
-    filtered_df = filtered_df.dropna(subset=["Offshore Region"])
+    filtered_df =  df.dropna(subset=["Offshore Region"])
     offshore_revenue = filtered_df.groupby("Offshore Region")["Revenue"].sum().sort_values(ascending=False).head(10)
     fig9, ax9 = plt.subplots(figsize=(7, 4))
     offshore_revenue.plot(kind="bar", ax=ax9)
