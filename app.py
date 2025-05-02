@@ -96,23 +96,32 @@ else:
     st.subheader("Revenue Trends Over the Years")
     revenue_trends = filtered_df.groupby("Calendar Year")["Revenue"].sum().reset_index()
     fig1, ax1 = plt.subplots(figsize=(6, 3))
-    sns.lineplot(data=revenue_trends, x="Calendar Year", y="Revenue", ax=ax1)
+    sns.lineplot(data=revenue_trends, x="Calendar Year", y="Revenue", ax=ax1, marker='o')
     ax1.set_title("Revenue Trends Over the Years", fontsize=8)
     ax1.set_xlabel("Year", fontsize=6)
     ax1.set_ylabel("Revenue", fontsize=6)
     ax1.tick_params(axis='y', labelsize=6)
     ax1.tick_params(axis='x', labelsize=6)
 
-    # Add data labels with adjusted positioning
+    # Add smart label positioning
+    previous_y = None
     for i in range(len(revenue_trends)):
-        x_pos = revenue_trends["Calendar Year"].iloc[i]
-        y_pos = revenue_trends["Revenue"].iloc[i]
-        # Adjust the vertical offset based on the position of the point
-        ax1.text(x_pos, y_pos, format_revenue(y_pos), fontsize=6, ha='center',
-                 va='bottom' if i % 2 == 0 else 'top', color='black', weight='bold')
+        x = revenue_trends["Calendar Year"].iloc[i]
+        y = revenue_trends["Revenue"].iloc[i]
+        offset = 0.05 * y  # 5% offset
+
+        if previous_y is not None and abs(y - previous_y) < 0.15 * y:
+            # If points are close, adjust label position up or down
+            va = 'top' if i % 2 == 0 else 'bottom'
+        else:
+            va = 'bottom'
+
+        ax1.text(x, y + (offset if va == 'bottom' else -offset), format_revenue(y),
+                 fontsize=6, ha='center', va=va, weight='bold')
+
+        previous_y = y
 
     st.pyplot(fig1)
-
 
     # State by Revenue
     st.subheader("Top 10 States by Revenue")
