@@ -143,15 +143,26 @@ else:
     ax5.tick_params(axis='x', labelsize=6)
     st.pyplot(fig5)
 
-    # # Revenue by Land Class
+    # Revenue by Land Class
     st.subheader("Revenue by Land Class")
-    revenue_land_class = pd.DataFrame(filtered_df.groupby("Land Class")["Revenue"].sum())
+    revenue_land_class = filtered_df.groupby("Land Class")["Revenue"].sum()
 
-    fig6, ax6 = plt.subplots(figsize=(4, 4))  # Adjust figsize as needed
-    revenue_land_class.plot(kind="pie", y="Revenue", autopct="%.2f%%", subplots=True, ax=ax6)
-    ax6.set_ylabel("")  # Remove y-label
+    # Optional: force display of all classes, even if one is missing
+    all_classes = df["Land Class"].dropna().unique()
+    revenue_land_class = revenue_land_class.reindex(all_classes, fill_value=0)
+
+    fig6, ax6 = plt.subplots(figsize=(4, 4))
+    ax6.pie(
+        revenue_land_class,
+        labels=revenue_land_class.index,
+        autopct="%.2f%%",
+        startangle=90,
+        wedgeprops={'edgecolor': 'white'},
+    )
+    ax6.axis("equal")  # Equal aspect ratio ensures pie is circular
     ax6.set_title("Revenue Distribution by Land Class", fontsize=8)
     st.pyplot(fig6)
+
 
 
     # Revenue by Land Category
