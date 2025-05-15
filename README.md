@@ -4,3 +4,5 @@
 - The data spans from 2003 - 2023 and is organized by year, including details on land classification, lease types, revenue types, and commodities/products involved. 
 - The dataset, managed by the Department of the Interior’s Office of Natural Resources Revenue, excludes revenue from privately-owned or state lands. 
 - Native American revenue data is reported only at the national level to protect private and sensitive information.
+
+- Tools Used: SQL Server Management Studio, Power BI, Jupyter Notebook, Streamlit
